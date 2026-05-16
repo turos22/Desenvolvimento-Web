@@ -1,0 +1,98 @@
+body{
+    background-color: #f8f9fc;
+}
+
+nav ul{
+    animation: entrar-tela 0.7s ease-in;    
+}
+
+nav ul li:hover {
+    border-radius: 20px;
+    background-color: #e2e8f0;
+    transition: 0.1s ease-in;
+}
+
+.custom-blur {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
+}
+
+body {
+  padding-top: 70px; 
+}
+
+.d-flex button{
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 5px 15px;
+}
+
+#bb_entrar{
+    border: 1px solid #2b4acb;
+}
+#bb_entrar:hover{
+    background-color: #1a7a5c;
+    color: #fff;
+}
+
+#bb_cadastrar{
+    background-color: #2b4acb;
+}
+
+#bb_cadastrar:hover{
+    background-color: #1a7a5c;
+    color: #fff;
+}
+
+.senha_pai{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.alterna_senha{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    text-align: right;
+
+}
+
+.input_senha{
+    border:none;
+    outline: none;
+}
+
+.usu_logado{
+    color: #2b4acb;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    border: 1px solid #2b4acb;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
+#bb_sair{
+    border: 1px solid #2b4acb;
+}
+
+
+@keyframes entrar-tela{
+    from{
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

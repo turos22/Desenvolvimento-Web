@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Incluir+ — Perguntas Frequentes sobre a plataforma de empregos inclusivos." />
+  <title>Perguntas Frequentes | Incluir+</title>
+  <link rel="stylesheet" href="../estilos/pagina_inicial.css" />
+  <link rel="stylesheet" href="../estilos/faq.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script type="module" src="../scripts/funcoes.js"></script>
+  <script>
+    window.onload = function(){
+        carregar_nome_usuario();
+        verificar_login_usuario();
+    }
+  </script>
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+       ============================ -->
+   <nav class="custom-navbar" id="navbar_custom" role="navigation" aria-label="Navegação principal">
+    <div class="nav-container">
+
+      <a href="index.html" class="nav-logo" aria-label="Incluir+ — Página inicial">
+        <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+        <span>Incluir+</span>
+      </a>
+
+      <ul class="custom-nav-links" id="navLinks" role="list">
+         <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li id="dashboard_option_nav"><a href="contato.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Dashboard</a></li>
+      </ul>
+
+      <div class="custom-nav-actions">
+        <div id="cabec_padrao">
+            <a href="Login.html" class="btn btn-outline">Entrar</a>
+            <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+        </div>
+        <div style="display: none; align-items: center; justify-content: center; gap: 10px;" id="div_logado">
+            <i class="fa-solid fa-user usu_logado" onclick="redirecionar('Cadastro.html')" style="cursor: pointer;"></i>
+            <span id="nome_usuario" onclick="redirecionar('Cadastro.html')"></span>
+            <button type="button" class="btn btn-light me-2" id="bb_sair" onclick="deslogar()">Sair</button>
+        </div>
+      </div>
+
+      <button class="custom-nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div class="custom-nav-mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li class="nav-item p-2 m-1" style="display: none; font-weight: bold;" id="dashboard_option_nav">
+            <a class="text-dark/90 nav-link" href="#"><i class="fa-solid fa-chart-pie" style="margin-right: 5px;"></i>Dashboard</a>
+        </li>
+      </ul>
+      <div class="custom-nav-mobile-actions">
+        <a href="Login.html" class="btn btn-outline">Entrar</a>
+        <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+      </div>
+    </div>
+  </nav>
+  <main>
+
+    <!-- ============================
+         HERO
+         ============================ -->
+    <section class="faq-hero" aria-labelledby="faq-hero-title">
+      <div class="container">
+        <div class="faq-hero-content">
+          <span class="faq-hero-label">
+            <i class="fa-regular fa-circle-question" aria-hidden="true"></i> Central de Ajuda
+          </span>
+          <h1 id="faq-hero-title">Perguntas Frequentes</h1>
+          <p>Encontre respostas rápidas sobre a plataforma, cadastro, vagas e acessibilidade.</p>
+          <div class="faq-search-wrap" role="search">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input
+              type="search"
+              id="faqSearch"
+              placeholder="Buscar pergunta..."
+              aria-label="Buscar perguntas frequentes"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         CONTEÚDO PRINCIPAL
+         ============================ -->
+    <div class="faq-page">
+      <div class="container">
+
+        <!-- Filtros por categoria -->
+        <div class="faq-cats" role="group" aria-label="Filtrar por categoria">
+          <button class="faq-cat active" data-cat="all">
+            <i class="fa-solid fa-border-all" aria-hidden="true"></i> Todas
+          </button>
+          <button class="faq-cat" data-cat="geral">
+            <i class="fa-regular fa-circle-question" aria-hidden="true"></i> Geral
+          </button>
+          <button class="faq-cat" data-cat="candidatos">
+            <i class="fa-solid fa-user" aria-hidden="true"></i> Para Candidatos
+          </button>
+          <button class="faq-cat" data-cat="empresas">
+            <i class="fa-regular fa-building" aria-hidden="true"></i> Para Empresas
+          </button>
+          <button class="faq-cat" data-cat="acessibilidade">
+            <i class="fa-solid fa-universal-access" aria-hidden="true"></i> Acessibilidade
+          </button>
+        </div>
+
+        <!-- Seções de perguntas -->
+        <div id="faqSections" class="faq-sections">
+
+          <!-- ---- GERAL ---- -->
+          <section class="faq-section" data-category="geral" aria-labelledby="cat-geral">
+            <h2 class="faq-section-title" id="cat-geral">
+              <i class="fa-regular fa-circle-question" aria-hidden="true"></i> Geral
+            </h2>
+            <div class="faq-list">
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>O que é a plataforma Incluir+?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>A Incluir+ é uma plataforma digital de empregabilidade inclusiva que conecta pessoas com deficiência a empresas comprometidas com a diversidade. Nosso objetivo é facilitar o acesso ao mercado de trabalho, oferecendo vagas qualificadas, cursos e recursos de apoio.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>É necessário criar uma conta para usar a plataforma?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Você pode visualizar as vagas disponíveis sem criar uma conta. No entanto, para se candidatar a vagas, acompanhar processos seletivos e acessar cursos exclusivos, é necessário realizar o cadastro gratuito na plataforma.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>A plataforma é gratuita para candidatos?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Sim! O acesso à plataforma é totalmente gratuito para candidatos. Você pode se cadastrar, buscar vagas, se candidatar e acompanhar seus processos seletivos sem nenhum custo.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>A Incluir+ atua em quais regiões do Brasil?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>A plataforma atua em todo o território nacional. Temos vagas presenciais em diversas cidades, além de um grande volume de oportunidades remotas (home office e híbrido) que permitem candidatos de qualquer região do país se candidatarem.</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- CANDIDATOS ---- -->
+          <section class="faq-section" data-category="candidatos" aria-labelledby="cat-candidatos">
+            <h2 class="faq-section-title" id="cat-candidatos">
+              <i class="fa-solid fa-user" aria-hidden="true"></i> Para Candidatos
+            </h2>
+            <div class="faq-list">
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Como me candidato a uma vaga?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Para se candidatar, acesse a página de <a href="vagas.html">Vagas</a>, encontre uma oportunidade que corresponda ao seu perfil e clique em "Candidatar-se". Se ainda não tiver conta, será necessário criar um cadastro gratuito antes de prosseguir.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Posso editar minhas informações de perfil após o cadastro?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Sim. Após criar sua conta, você pode atualizar suas informações pessoais, currículo, habilidades e tipo de deficiência a qualquer momento pelo painel do candidato. Recomendamos manter seu perfil sempre atualizado para aumentar suas chances.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Como saber se fui selecionado para uma vaga?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Quando uma empresa avança com seu processo, você receberá uma notificação por e-mail e também poderá acompanhar o status de todas as suas candidaturas pelo painel do candidato em tempo real.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Preciso comprovar minha deficiência para usar a plataforma?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Para criar uma conta e navegar pela plataforma, não é necessária nenhuma comprovação. A documentação médica (laudo ou CID) pode ser solicitada pela empresa contratante durante o processo seletivo, conforme a legislação trabalhista vigente.</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- EMPRESAS ---- -->
+          <section class="faq-section" data-category="empresas" aria-labelledby="cat-empresas">
+            <h2 class="faq-section-title" id="cat-empresas">
+              <i class="fa-regular fa-building" aria-hidden="true"></i> Para Empresas
+            </h2>
+            <div class="faq-list">
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Como publico vagas na Incluir+?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Empresas podem criar uma conta empresarial, acessar o painel de gerenciamento e publicar vagas detalhadas com localização, modalidade, tipo de contrato e os tipos de deficiência aceitos. O processo é simples e leva menos de 5 minutos.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Qual é o custo para divulgar vagas?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Oferecemos planos flexíveis para empresas, incluindo um plano gratuito com publicação limitada de vagas. Para volumes maiores e recursos avançados, temos planos acessíveis. Entre em <a href="contato.html">contato</a> para conhecer as opções.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Como gerencio as vagas após a publicação?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Pelo painel da empresa você pode editar, pausar, reativar e excluir vagas a qualquer momento. Também é possível visualizar candidatos e avançá-los no processo seletivo diretamente pela plataforma.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>A plataforma ajuda no processo seletivo inclusivo?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Sim! Além de conectar empresas a candidatos, oferecemos materiais educativos sobre boas práticas de inclusão, dicas de adaptação de processos seletivos e suporte especializado para empresas que estão iniciando sua jornada de diversidade.</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <!-- ---- ACESSIBILIDADE ---- -->
+          <section class="faq-section" data-category="acessibilidade" aria-labelledby="cat-acessibilidade">
+            <h2 class="faq-section-title" id="cat-acessibilidade">
+              <i class="fa-solid fa-universal-access" aria-hidden="true"></i> Acessibilidade
+            </h2>
+            <div class="faq-list">
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>A plataforma é compatível com leitores de tela?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Sim. A Incluir+ foi desenvolvida com acessibilidade como prioridade. Toda a plataforma usa marcações semânticas (HTML5), atributos ARIA e é compatível com leitores de tela como NVDA, JAWS e VoiceOver.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>A plataforma segue as diretrizes WCAG?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Seguimos as diretrizes WCAG 2.1 nível AA como referência. Isso inclui contraste de cores adequado, navegação por teclado, textos alternativos em imagens, indicadores de foco visíveis e estrutura de títulos hierárquica.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Quais recursos de acessibilidade estão disponíveis?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Disponibilizamos: navegação completa por teclado (Tab, Setas, Enter, Escape), alto contraste de cores, textos com tamanho ajustável, descrições de ícones, alertas de formulário para leitores de tela e páginas responsivas para qualquer dispositivo.</p>
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                  <span>Como reportar um problema de acessibilidade?</span>
+                  <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="faq-answer" hidden>
+                  <p>Se encontrar qualquer barreira de acessibilidade, entre em contato pela <a href="contato.html">página de Contato</a> selecionando o assunto "Acessibilidade". Nossa equipe técnica analisará o problema com prioridade e retornará em até 2 dias úteis.</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Estado vazio (busca sem resultado) -->
+        <div class="faq-empty" id="faqEmpty" hidden role="status" aria-live="polite">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <h3>Nenhuma pergunta encontrada</h3>
+          <p>Tente outros termos de busca ou explore as categorias acima.</p>
+        </div>
+
+        <!-- CTA — Não achou resposta -->
+        <div class="faq-cta" id="faqCta">
+          <div class="faq-cta-icon" aria-hidden="true">
+            <i class="fa-regular fa-envelope"></i>
+          </div>
+          <div class="faq-cta-text">
+            <h3>Não encontrou sua resposta?</h3>
+            <p>Nossa equipe de suporte está pronta para ajudar você.</p>
+          </div>
+          <a href="contato.html" class="btn btn-primary">
+            <i class="fa-solid fa-headset" aria-hidden="true"></i>
+            Falar com o Suporte
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================
+       FOOTER
+       ============================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+            <span>Incluir+</span>
+          </a>
+          <p>Conectando talentos a oportunidades. Uma plataforma inclusiva para pessoas com deficiência.</p>
+          <address class="footer-contact">
+            <a href="mailto:contato@incluirmais.com.br">
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i> contato@incluirmais.com.br
+            </a>
+            <a href="tel:+5511999999999">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i> (11) 99999-9999
+            </a>
+            <span>
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i> São Paulo, SP – Brasil
+            </span>
+          </address>
+        </div>
+        <div class="footer-links">
+          <h4>Plataforma</h4>
+          <ul>
+            <li><a href="vagas.html">Vagas</a></li>
+            <li><a href="#">Cursos</a></li>
+            <li><a href="#">Empresas</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="#">Guia de Acessibilidade</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Institucional</h4>
+          <ul>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Incluir+. Todos os direitos reservados.</p>
+        <div class="footer-social" aria-label="Redes sociais">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script src="../scripts/pagina_inicial.js"></script>
+  <script src="../scripts/faq.js"></script>
+</body>
+</html>

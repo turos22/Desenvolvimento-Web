@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparência | Incluir+</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../estilos/pagina_inicial.css" />
+    
+    
+
+    <style>
+        /* Baseado no seu arquivo style.css e coresutilizacao.docx */
+        :root {
+            --primary: #2b4acb;
+            --secondary: #1a7a5c;
+            --background: #f8f9fc;
+            --foreground: #0f172a;
+            --card: #ffffff;
+            --muted-foreground: #475569;
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            padding-top: 80px;
+        }
+
+        .transparency-header {
+            background: linear-gradient(135deg, var(--primary), #1e38a8);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: none;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .table-container {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-filter {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn-filter:hover {
+            background-color: #145e47;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================
+       NAVBAR
+       ============================ -->
+  <nav class="custom-navbar" id="navbar_custom" role="navigation" aria-label="Navegação principal">
+    <div class="nav-container">
+
+      <a href="index.html" class="nav-logo" aria-label="Incluir+ — Página inicial">
+        <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+        <span>Incluir+</span>
+      </a>
+
+      <ul class="custom-nav-links mt-3" id="navLinks" role="list">
+         <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li id="dashboard_option_nav"><a href="contato.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Dashboard</a></li>
+      </ul>
+
+      <div class="custom-nav-actions">
+        <div id="cabec_padrao">
+            <a href="Login.html" class="btn btn-outline">Entrar</a>
+            <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+        </div>
+        <div style="display: none; align-items: center; justify-content: center; gap: 10px;" id="div_logado">
+            <i class="fa-solid fa-user usu_logado" onclick="redirecionar('Cadastro.html')" style="cursor: pointer;"></i>
+            <span id="nome_usuario" onclick="redirecionar('Cadastro.html')"></span>
+            <button type="button" class="btn btn-light me-2" id="bb_sair" onclick="deslogar()">Sair</button>
+        </div>
+      </div>
+
+      <button class="custom-nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div class="custom-nav-mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li class="nav-item p-2 m-1" style="display: none; font-weight: bold;" id="dashboard_option_nav">
+            <a class="text-dark/90 nav-link" href="#"><i class="fa-solid fa-chart-pie" style="margin-right: 5px;"></i>Dashboard</a>
+        </li>
+      </ul>
+      <div class="custom-nav-mobile-actions">
+        <a href="Login.html" class="btn btn-outline">Entrar</a>
+        <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+      </div>
+    </div>
+  </nav>
+
+    <header class="transparency-header text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Portal da Transparência</h1>
+            <p class="lead">Acompanhe nossas metas, investimentos e o impacto social da Central de Oportunidades.</p>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <div class="row g-4 mb-5 text-center">
+            <div class="col-md-4">
+                <div class="stat-card p-4">
+                    <i class="fa-solid fa-user-check fs-2 text-secondary mb-2"></i>
+                    <div class="stat-number" id="totalPcds">0</div>
+                    <p class="text-muted mb-0">PcDs Empregados</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card p-4">
+                    <i class="fa-solid fa-graduation-cap fs-2 text-secondary mb-2"></i>
+                    <div class="stat-number" id="totalCursos">0</div>
+                    <p class="text-muted mb-0">Certificados Emitidos</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card p-4">
+                    <i class="fa-solid fa-handshake fs-2 text-secondary mb-2"></i>
+                    <div class="stat-number" id="totalEmpresas">0</div>
+                    <p class="text-muted mb-0">Empresas Engajadas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="h5 fw-bold mb-0">Detalhamento de Iniciativas e Verbas</h3>
+                <button class="btn btn-filter btn-sm" onclick="filtrarProjetos()">
+                    <i class="fa-solid fa-filter me-1"></i> Filtrar Recentes
+                </button>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Data</th>
+                            <th>Projeto</th>
+                            <th>Origem do Recurso</th>
+                            <th>Valor Investido</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabela">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-4 bg-dark text-white text-center">
+        <div class="container">
+            <p class="small mb-0">&copy; 2026 Incluir+. Dados atualizados mensalmente conforme normas de transparência.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Array de Objetos - Conceito de Matriz/Dados (Slides Aula 1 Continuacao) 
+        const dadosProjetos = [
+            { data: "15/03/2024", nome: "Capacitação Front-End Acessível", origem: "Doação Corporativa", valor: 12500.00, status: "Concluído" },
+            { data: "02/04/2024", nome: "Mentoria para RHs Inclusivos", origem: "Fundo Social", valor: 5400.00, status: "Em andamento" },
+            { data: "20/05/2024", nome: "Manutenção da Plataforma", origem: "Recursos Próprios", valor: 3200.00, status: "Concluído" }
+        ];
+
+        // Função Nomeada (Slides Aula 2) [cite: 120]
+        function formatarMoeda(valor) {
+            return "R$ " + valor.toFixed(2).replace('.', ',');
+        }
+
+        // Função para carregar a tabela usando Loops (Slides Aula 1) 
+        function carregarTabela() {
+            const tabela = document.getElementById("corpoTabela");
+            tabela.innerHTML = ""; // Limpa antes de carregar
+
+            for (let i = 0; i < dadosProjetos.length; i++) {
+                let p = dadosProjetos[i];
+                let row = `<tr>
+                    <td>${p.data}</td>
+                    <td class="fw-bold">${p.nome}</td>
+                    <td>${p.origem}</td>
+                    <td>${formatarMoeda(p.valor)}</td>
+                    <td><span class="badge ${p.status === 'Concluído' ? 'bg-success' : 'bg-warning'}">${p.status}</span></td>
+                </tr>`;
+                tabela.innerHTML += row;
+            }
+        }
+
+        // Função com Switch Case para simular contador (Slides Aula 1) [cite: 46]
+        function animarContadores() {
+            const metas = { totalPcds: 1540, totalCursos: 890, totalEmpresas: 320 };
+            
+            for (let id in metas) {
+                let elemento = document.getElementById(id);
+                let valorAlvo = metas[id];
+                let atual = 0;
+                
+                let intervalo = setInterval(() => {
+                    if (atual >= valorAlvo) {
+                        clearInterval(intervalo);
+                    } else {
+                        atual += Math.ceil(valorAlvo / 50);
+                        elemento.innerText = atual > valorAlvo ? valorAlvo : atual;
+                    }
+                }, 30);
+            }
+        }
+
+        // Evento ao carregar a janela (Aula 2) [cite: 125]
+        window.onload = function() {
+            carregarTabela();
+            animarContadores();
+            carregar_nome_usuario();
+            verificar_login_usuario();
+        };
+
+        function filtrarProjetos() {
+            alert("Função de filtro será conectada ao banco de dados em breve!");
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/pagina_inicial.js"></script>
+    <script type="module" src="../scripts/funcoes.js"></script>
+</body>
+</html>

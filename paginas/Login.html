@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | Incluir+</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <link rel="stylesheet" href="../estilos/cabecalho.css">
+    <link rel="stylesheet" href="../estilos/Login.css">
+    <link rel="stylesheet" href="../estilos/pagina_inicial.css">
+    <script type="module" src="../scripts/funcoes.js"></script>
+    <script>
+    window.onload = function() {
+        carregar_usuario_logado();
+        carregar_array_usuarios();
+    };
+</script>
+    
+  </head>
+  <body>
+    <!-- Cabeçalho com NavBar -->
+   <header class="navbar navbar-expand-lg bg-body-tertiary p-1 fixed-top border-bottom border-1 bg-white bg-opacity-75 border-bottom custom-blur">
+        <div class="container-fluid">
+            <a href="index.html" class="nav-logo" aria-label="Incluir+ — Página inicial">
+                <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+                <span>Incluir+</span>
+            </a>
+            <div class="d-flex">
+                <button type="button" class="btn btn-light me-2" id="bb_entrar" onclick="redirecionar('index.html')">Voltar</button>
+            </div>
+        </div>
+    </header>
+    <!--Fim do Cabecalho-->
+
+    <div style=" height: 80vh; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <form class="form_login" onsubmit="realizar_login(event)">
+        <h2 class="text-center text-dark" style="font-weight: 600; font-size: 1.75rem;"> Bem-vindo de volta</h2>
+        <p class="text-center text-dark">Entre com suas credenciais para acessar sua conta</p>
+       
+        <div class="mb-2 mt-4">
+            <label class="mb-2" style="font-weight: 600;" for="email_login">E-mail</label>
+            <input type="email" class="form-control" placeholder="seu@email.com" id="email_login" name="email_login" required>
+        </div>
+        <p class="mb-4" style="font-style: italic;">Use o e-mail cadastrado na plataforma.</p>
+
+        <div class="mb-2 mt-4">
+            <label class="mb-2" style="font-weight: 600;" for="senha_login">Senha</label>
+            <div class="row senha_pai">
+                <input class="col-11 input_senha" type="password" class="form-control" placeholder="Sua senha" id="senha_login" name="senha_login" required>
+                <button class="col-1 alterna_senha"  type="button" id="mostrar_senha" onclick="alternarsenha(this)"><i class="fa fa-eye"></i></button>
+            </div>
+        </div>
+        <p class="mb-4" style="font-style: italic;">Mínimo de 8 caracteres com letras e números</p>
+
+        <div class="row mb-4 mt-2">
+            <div class="col" id="lembra_de_mim" style="width: 50%;">
+                <input type="checkbox" class="form-check-input" id="lembra_de_mim" name="lembra_de_mim">
+                <label class="form-check-label" for="lembra_de_mim">Lembrar de mim</label>
+            </div>
+            <button type="button" class="col esqueci_senha" style="width: 50%; text-align: right; text-decoration: none; color: #2b4acb; font-weight: 600;" onclick="enviarComEmailJS(2)">Esqueceu a Senha?</button>
+        </div>
+        
+
+        <button type="submit" class="btn btn_login mb-3">Entrar</button>
+
+        <div class="mt-3 ja_tem_conta">
+            <p>Ainda não tem uma conta? <a href="Cadastro.html">Cadastre-se gratuitamente</a></p>
+        </div>
+        
+    </form>
+    
+    </div>
+    
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>

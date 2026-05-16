@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Incluir+ — Plataforma acessível e inclusiva que conecta pessoas com deficiência a vagas de emprego, cursos e oportunidades." />
+  <title>Incluir+ | Conectando talentos a oportunidades</title>
+
+  <link rel="stylesheet" href="/estilos/pagina_inicial.css" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script type="module" src="../scripts/funcoes.js"></script>
+  <script>
+    window.onload = function(){
+        carregar_nome_usuario();
+        verificar_login_usuario();
+    }
+  </script>
+
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+       ============================ -->
+  <nav class="custom-navbar" id="navbar_custom" role="navigation" aria-label="Navegação principal">
+    <div class="nav-container">
+
+      <a href="index.html" class="nav-logo" aria-label="Incluir+ — Página inicial">
+        <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+        <span>Incluir+</span>
+      </a>
+
+      <ul class="custom-nav-links" id="navLinks" role="list">
+         <li><a href="index.html" class="active"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li id="dashboard_option_nav"><a href="contato.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Dashboard</a></li>
+      </ul>
+
+      <div class="custom-nav-actions">
+        <div id="cabec_padrao">
+            <a href="Login.html" class="btn btn-outline">Entrar</a>
+            <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+        </div>
+        <div style="display: none; align-items: center; justify-content: center; gap: 10px;" id="div_logado">
+            <i class="fa-solid fa-user usu_logado" onclick="redirecionar('Cadastro.html')" style="cursor: pointer;"></i>
+            <span id="nome_usuario" onclick="redirecionar('Cadastro.html')"></span>
+            <button type="button" class="btn btn-light me-2" id="bb_sair" onclick="deslogar()">Sair</button>
+        </div>
+      </div>
+
+      <button class="custom-nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div class="custom-nav-mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li class="nav-item p-2 m-1" style="display: none; font-weight: bold;" id="dashboard_option_nav">
+            <a class="text-dark/90 nav-link" href="#"><i class="fa-solid fa-chart-pie" style="margin-right: 5px;"></i>Dashboard</a>
+        </li>
+      </ul>
+      <div class="custom-nav-mobile-actions">
+        <a href="Login.html" class="btn btn-outline">Entrar</a>
+        <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ============================
+         HERO
+         ============================ -->
+    <section id="inicio" class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content">
+
+          <div class="hero-text">
+            <span class="hero-badge">Inclusão no Mercado de Trabalho</span>
+            <h1 class="hero-title" id="hero-title">
+              Conectando <span class="text-primary">talentos</span><br />
+              a <span class="text-secondary">oportunidades</span>
+            </h1>
+            <p class="hero-description">
+              Uma plataforma acessível e inclusiva que reúne vagas de emprego, cursos de
+              capacitação e projetos voltados à inclusão de pessoas com deficiência no mercado
+              de trabalho.
+            </p>
+            <div class="hero-actions">
+              <a href="#vagas" class="btn btn-primary btn-lg">
+                Explorar Vagas <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+              <a href="Cadastro.html" class="btn btn-outline btn-lg" id="btn_criar-conta">Criar Conta Gratuita</a>
+            </div>
+
+            <div class="hero-stats" role="list" aria-label="Números da plataforma">
+              <div class="stat-card" role="listitem">
+                <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                <span class="stat-number">1.200+</span>
+                <span class="stat-label">Vagas Disponíveis</span>
+              </div>
+              <div class="stat-card" role="listitem">
+                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                <span class="stat-number">350+</span>
+                <span class="stat-label">Cursos Gratuitos</span>
+              </div>
+              <div class="stat-card" role="listitem">
+                <i class="fa-solid fa-building" aria-hidden="true"></i>
+                <span class="stat-number">200+</span>
+                <span class="stat-label">Empresas Parceiras</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <div class="hero-image-card">
+              <div class="hero-image-circle" aria-hidden="true"></div>
+              <img
+                src="../img/hero-inclusion.jpg"
+                alt="Pessoas com e sem deficiência colaborando em um ambiente de trabalho moderno"
+              />
+            </div>
+            <div class="wcag-badge" role="note" aria-label="Plataforma certificada WCAG 2.1 AA">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <div>
+                <strong>WCAG 2.1 AA</strong>
+                <span>Plataforma acessível</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         FEATURES
+         ============================ -->
+    <section id="sobre" class="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="features-title">Por que escolher a Incluir+?</h2>
+          <p>
+            Uma plataforma pensada para você, com recursos que facilitam sua jornada
+            profissional e garantem uma experiência inclusiva.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-universal-access"></i>
+            </div>
+            <h3>100% Acessível</h3>
+            <p>
+              Design desenvolvido seguindo as diretrizes WCAG, garantindo navegação por
+              teclado, compatibilidade com leitores de tela e alto contraste.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3>Busca Inteligente</h3>
+            <p>
+              Encontre vagas e cursos filtrados por tipo de deficiência, localização,
+              modalidade de trabalho e área de atuação.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Dados Protegidos</h3>
+            <p>
+              Suas informações pessoais são tratadas com total segurança e em
+              conformidade com a LGPD.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-people-group"></i>
+            </div>
+            <h3>Comunidade Ativa</h3>
+            <p>
+              Conecte-se com outros profissionais, compartilhe experiências e amplie
+              sua rede de contatos.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-medal"></i>
+            </div>
+            <h3>Cursos Certificados</h3>
+            <p>
+              Acesso a cursos de capacitação profissional com certificação reconhecida
+              pelo mercado.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h3>Suporte Dedicado</h3>
+            <p>
+              Equipe preparada para auxiliar em todas as etapas, desde o cadastro até
+              a contratação.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         VAGAS EM DESTAQUE
+         ============================ -->
+    <section id="vagas" class="jobs" aria-labelledby="jobs-title">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <h2 id="jobs-title">Vagas em Destaque</h2>
+            <p>Oportunidades selecionadas de empresas comprometidas com a inclusão</p>
+          </div>
+          <a href="#" class="btn btn-outline">
+            Ver todas as vagas <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="jobs-grid">
+
+          <article class="job-card">
+            <div class="job-card-header">
+              <div>
+                <h3 class="job-title">Analista de Suporte Técnico</h3>
+                <p class="job-company">
+                  <i class="fa-regular fa-building" aria-hidden="true"></i> TechCorp Brasil
+                </p>
+              </div>
+              <div class="job-icon" aria-hidden="true">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+            </div>
+            <div class="job-meta">
+              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> São Paulo, SP</span>
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 2 dias</span>
+            </div>
+            <div class="job-tags">
+              <span class="tag tag-clt">CLT</span>
+              <span class="tag tag-mode">Híbrido</span>
+            </div>
+            <div class="job-disabilities">
+              <span class="tag tag-disability">Deficiência Física</span>
+              <span class="tag tag-disability">Deficiência Auditiva</span>
+            </div>
+            <div class="job-footer">
+              <span class="job-salary">R$ 3.500 – R$ 4.500</span>
+              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
+            </div>
+          </article>
+
+          <article class="job-card">
+            <div class="job-card-header">
+              <div>
+                <h3 class="job-title">Assistente Administrativo</h3>
+                <p class="job-company">
+                  <i class="fa-regular fa-building" aria-hidden="true"></i> Grupo Inclusão
+                </p>
+              </div>
+              <div class="job-icon" aria-hidden="true">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+            </div>
+            <div class="job-meta">
+              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Rio de Janeiro, RJ</span>
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 3 dias</span>
+            </div>
+            <div class="job-tags">
+              <span class="tag tag-clt">CLT</span>
+              <span class="tag tag-mode">Presencial</span>
+            </div>
+            <div class="job-disabilities">
+              <span class="tag tag-disability">Todas as Deficiências</span>
+            </div>
+            <div class="job-footer">
+              <span class="job-salary">R$ 2.200 – R$ 2.800</span>
+              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
+            </div>
+          </article>
+
+          <article class="job-card">
+            <div class="job-card-header">
+              <div>
+                <h3 class="job-title">Desenvolvedor Front-end Junior</h3>
+                <p class="job-company">
+                  <i class="fa-regular fa-building" aria-hidden="true"></i> StartupInclui
+                </p>
+              </div>
+              <div class="job-icon" aria-hidden="true">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+            </div>
+            <div class="job-meta">
+              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Remoto</span>
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 1 dia</span>
+            </div>
+            <div class="job-tags">
+              <span class="tag tag-clt">CLT</span>
+              <span class="tag tag-mode">Home Office</span>
+            </div>
+            <div class="job-disabilities">
+              <span class="tag tag-disability">Deficiência Visual</span>
+              <span class="tag tag-disability">Deficiência Física</span>
+            </div>
+            <div class="job-footer">
+              <span class="job-salary">R$ 4.000 – R$ 5.500</span>
+              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
+            </div>
+          </article>
+
+          <article class="job-card">
+            <div class="job-card-header">
+              <div>
+                <h3 class="job-title">Atendente de Call Center</h3>
+                <p class="job-company">
+                  <i class="fa-regular fa-building" aria-hidden="true"></i> Central de Atendimento SA
+                </p>
+              </div>
+              <div class="job-icon" aria-hidden="true">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+            </div>
+            <div class="job-meta">
+              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Belo Horizonte, MG</span>
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 5 dias</span>
+            </div>
+            <div class="job-tags">
+              <span class="tag tag-clt">CLT</span>
+              <span class="tag tag-mode">Presencial</span>
+            </div>
+            <div class="job-disabilities">
+              <span class="tag tag-disability">Deficiência Física</span>
+            </div>
+            <div class="job-footer">
+              <span class="job-salary">R$ 1.800 – R$ 2.200</span>
+              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         CURSOS DE CAPACITAÇÃO
+         ============================ -->
+    <section id="cursos" class="courses" aria-labelledby="courses-title">
+      <div class="container">
+        <div class="section-header-row">
+          <div>
+            <h2 id="courses-title">Cursos de Capacitação</h2>
+            <p>Desenvolva novas habilidades com cursos acessíveis e certificados</p>
+          </div>
+          <a href="#" class="btn btn-outline">
+            Ver todos os cursos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+
+        <div class="courses-grid">
+
+          <article class="course-card">
+            <div class="course-card-top">
+              <span class="badge badge-free">Gratuito</span>
+              <span class="course-rating">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <span>4.8</span>
+              </span>
+            </div>
+            <h3 class="course-title">Introdução à Programação com Python</h3>
+            <p class="course-institution">Tech Academy</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 40 horas</span>
+              <span><i class="fa-solid fa-users" aria-hidden="true"></i> 1.250</span>
+            </div>
+            <div class="course-tags">
+              <span class="tag tag-level">Iniciante</span>
+              <span class="tag tag-category">Tecnologia</span>
+            </div>
+            <a href="#" class="btn btn-outline btn-full">
+              <i class="fa-solid fa-circle-play" aria-hidden="true"></i> Ver Curso
+            </a>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card-top">
+              <span class="badge badge-free">Gratuito</span>
+              <span class="course-rating">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <span>4.9</span>
+              </span>
+            </div>
+            <h3 class="course-title">Excel do Básico ao Avançado</h3>
+            <p class="course-institution">Capacita+</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 20 horas</span>
+              <span><i class="fa-solid fa-users" aria-hidden="true"></i> 3.400</span>
+            </div>
+            <div class="course-tags">
+              <span class="tag tag-level">Todos os níveis</span>
+              <span class="tag tag-category">Administração</span>
+            </div>
+            <a href="#" class="btn btn-outline btn-full">
+              <i class="fa-solid fa-circle-play" aria-hidden="true"></i> Ver Curso
+            </a>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card-top">
+              <span class="badge badge-free">Gratuito</span>
+              <span class="course-rating">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <span>4.7</span>
+              </span>
+            </div>
+            <h3 class="course-title">Atendimento ao Cliente com Excelência</h3>
+            <p class="course-institution">Instituto Inclusão</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 15 horas</span>
+              <span><i class="fa-solid fa-users" aria-hidden="true"></i> 890</span>
+            </div>
+            <div class="course-tags">
+              <span class="tag tag-level">Iniciante</span>
+              <span class="tag tag-category">Comunicação</span>
+            </div>
+            <a href="#" class="btn btn-outline btn-full">
+              <i class="fa-solid fa-circle-play" aria-hidden="true"></i> Ver Curso
+            </a>
+          </article>
+
+          <article class="course-card">
+            <div class="course-card-top">
+              <span class="badge badge-paid">Pago</span>
+              <span class="course-rating">
+                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                <span>4.6</span>
+              </span>
+            </div>
+            <h3 class="course-title">Marketing Digital para Iniciantes</h3>
+            <p class="course-institution">Digital School</p>
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 30 horas</span>
+              <span><i class="fa-solid fa-users" aria-hidden="true"></i> 2.100</span>
+            </div>
+            <div class="course-tags">
+              <span class="tag tag-level">Iniciante</span>
+              <span class="tag tag-category">Marketing</span>
+            </div>
+            <a href="#" class="btn btn-outline btn-full">
+              <i class="fa-solid fa-circle-play" aria-hidden="true"></i> Ver Curso
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================
+       FOOTER
+       ============================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="#inicio" class="nav-logo" aria-label="Incluir+ — Página inicial">
+            <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+            <span>Incluir+</span>
+          </a>
+          <p>
+            Conectando talentos a oportunidades. Uma plataforma inclusiva
+            para pessoas com deficiência encontrarem vagas, cursos e projetos
+            de inclusão.
+          </p>
+          <address class="footer-contact">
+            <a href="mailto:contato@incluirmais.com.br">
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+              contato@incluirmais.com.br
+            </a>
+            <a href="tel:+5511999999999">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              (11) 99999-9999
+            </a>
+            <span>
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              São Paulo, SP – Brasil
+            </span>
+          </address>
+        </div>
+
+        <div class="footer-links">
+          <h4>Plataforma</h4>
+          <ul>
+            <li><a href="#vagas">Vagas</a></li>
+            <li><a href="#cursos">Cursos</a></li>
+            <li><a href="#">Empresas</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Guia de Acessibilidade</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Institucional</h4>
+          <ul>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Incluir+. Todos os direitos reservados.</p>
+        <div class="footer-social" aria-label="Redes sociais">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/scripts/pagina_inicial.js"></script>
+</body>
+</html>

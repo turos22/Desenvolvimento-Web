@@ -1,0 +1,564 @@
+/* ==========================================
+   vagas.css — Página de Vagas de Emprego
+   Depende de: style.css (design system)
+   ========================================== */
+
+/* ==========================================
+   Hero / Busca
+   ========================================== */
+.jobs-hero {
+  background-color: var(--primary);
+  padding: 88px 24px 48px;
+  text-align: center;
+  color: #fff;
+}
+
+.jobs-hero h1 {
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 800;
+  margin-bottom: 28px;
+  line-height: 1.2;
+}
+
+.jobs-search-form {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  max-width: 760px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 5px;
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  padding: 0 14px;
+  border-right: 1px solid var(--border);
+}
+
+.search-input-wrap input {
+  padding: 10px 0;
+}
+
+.search-input-wrap i {
+  color: var(--muted-foreground);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.search-input-wrap input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--foreground);
+  padding: 14px 0;
+  background: transparent;
+}
+
+.search-input-wrap input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: #fff;
+  border-color: var(--secondary);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.btn-secondary:hover {
+  background-color: #155f47;
+  border-color: #155f47;
+}
+
+.btn-search {
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 8px;
+}
+
+/* ==========================================
+   Layout principal
+   ========================================== */
+.jobs-page {
+  background-color: var(--background);
+  padding: 32px 0 80px;
+}
+
+.jobs-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ==========================================
+   Sidebar de filtros
+   ========================================== */
+.filters-sidebar {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: sticky;
+  top: 80px;
+}
+
+.filters-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  border: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.filter-group legend {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted-foreground);
+  transition: color 0.15s;
+}
+
+.filter-option:hover {
+  color: var(--foreground);
+}
+
+.filter-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-clear-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  margin-top: 4px;
+}
+
+.btn-clear-filters:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+/* ==========================================
+   Conteúdo de vagas
+   ========================================== */
+.jobs-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.jobs-count {
+  font-size: 15px;
+  color: var(--muted-foreground);
+}
+
+.jobs-count strong {
+  color: var(--foreground);
+}
+
+/* Sort select */
+.sort-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sort-wrap select {
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  font-family: var(--font);
+  color: var(--foreground);
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.sort-wrap select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(43, 74, 203, 0.15);
+}
+
+.sort-wrap i {
+  position: absolute;
+  right: 10px;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+
+/* ==========================================
+   Cards de vaga (lista vertical)
+   ========================================== */
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.job-item {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.job-item:hover {
+  box-shadow: var(--shadow);
+}
+
+.job-item.hidden {
+  display: none;
+}
+
+.job-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.job-item-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.job-item-company {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.job-item-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--muted);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--muted-foreground);
+  font-size: 16px;
+}
+
+.job-item-desc {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.job-item-meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.job-item-meta span {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.job-item-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.job-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+.job-item-salary {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+/* ==========================================
+   Estado vazio
+   ========================================== */
+.jobs-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 64px 24px;
+  gap: 12px;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.jobs-empty[hidden] { display: none; }
+
+.jobs-empty i {
+  font-size: 40px;
+  color: var(--muted-foreground);
+  opacity: 0.5;
+}
+
+.jobs-empty h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.jobs-empty p {
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+
+/* ==========================================
+   Paginação
+   ========================================== */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+/* container gerado pelo JS */
+.page-numbers {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--card);
+  color: var(--foreground);
+  font-size: 14px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: var(--muted);
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-number {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--card);
+  color: var(--foreground);
+  font-size: 14px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.page-number:hover {
+  background-color: var(--muted);
+}
+
+.page-number.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ==========================================
+   Botão de filtro mobile (oculto no desktop)
+   ========================================== */
+.filters-toggle {
+  display: none;
+}
+
+/* ==========================================
+   Responsivo
+   ========================================== */
+@media (max-width: 1024px) {
+  .jobs-layout {
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .jobs-hero {
+    padding: 100px 24px 36px;
+  }
+
+  .jobs-search-form {
+    flex-direction: column;
+    border-radius: var(--radius);
+    overflow: visible;
+    background: transparent;
+    box-shadow: none;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .search-input-wrap {
+    background-color: #fff;
+    border-radius: var(--radius-sm);
+    border: none;
+    width: 100%;
+  }
+
+  .btn-search {
+    width: 100%;
+    border-radius: var(--radius-sm);
+    padding: 12px 24px;
+  }
+
+  /* Layout mobile: coluna única, filtro abaixo do toggle */
+  .jobs-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Botão funil mobile */
+  .filters-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font);
+    color: var(--foreground);
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.15s;
+  }
+
+  .filters-toggle:hover {
+    background-color: var(--muted);
+  }
+
+  .filters-toggle span {
+    flex: 1;
+    text-align: left;
+  }
+
+  .filters-toggle-arrow {
+    font-size: 12px;
+    color: var(--muted-foreground);
+    transition: transform 0.2s ease;
+  }
+
+  .filters-toggle[aria-expanded="true"] .filters-toggle-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Sidebar colapsável no mobile */
+  .filters-sidebar {
+    position: static;
+    display: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    border-top: none;
+    padding: 20px 24px 24px;
+    margin-top: -4px;
+  }
+
+  .filters-sidebar.open {
+    display: block;
+  }
+
+  .filters-title {
+    display: none; /* título já está no botão */
+  }
+}
+
+@media (max-width: 480px) {
+  .job-item-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .job-item-footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro | Incluir+</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../estilos/cadastro.css">
+    <link rel="stylesheet" href="../estilos/cabecalho.css">
+    <link rel="stylesheet" href="../estilos/pagina_inicial.css">
+    <script type="module" src="../scripts/funcoes.js"></script>
+    <script>
+        window.onload = function() {
+            carregar_array_usuarios();
+            editar_usuario();
+        };
+    </script>
+
+  </head>
+  <body>
+    <!-- Cabeçalho com NavBar -->
+  <header class="navbar navbar-expand-lg bg-body-tertiary p-1 fixed-top border-bottom border-1 bg-white bg-opacity-75 border-bottom custom-blur">
+        <div class="container-fluid">
+            <a href="index.html" class="nav-logo" aria-label="Incluir+ — Página inicial">
+                <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+                <span>Incluir+</span>
+            </a>
+            <div class="d-flex">
+                <button type="button" class="btn btn-light me-2" id="bb_entrar" onclick="redirecionar('index.html')">Voltar</button>
+            </div>
+        </div>
+    </header>
+    <!--Fim do Cabecalho-->
+
+    
+    <form class="form_cadastro" onsubmit="salvar_usuario(event)">
+        <h2 class="text-center text-dark" style="font-weight: 600; font-size: 1.75rem;"> <span id="titulo_cadastro">Crie</span> sua Conta</h2>
+        <p class="text-center text-dark">Junte-se a milhares de pessoas e empresas comprometidas com a inclusão</p>
+        <div class="tipo_cadastro">
+            <button type="button" class="btn text-dark active" onclick="selecionar_tipo_cadastro(1)" id="btn_pessoa"><i class="fa-regular fa-circle-user me-2"></i>Pessoa</button>
+            <button type="button" class="btn text-dark" onclick="selecionar_tipo_cadastro(2)" id="btn_empresa"><i class="fa-regular fa-building me-2"></i>Empresa</button>
+        </div>
+        <!--Cadastro de Pessoa-->
+        <div class="mt-4 mb-4" id="pessoa" style="display: block;">
+           <div class="row mt-4 mb-4">
+                <div class="col">
+                    <label class="mb-2" style="font-weight: 600;" for="nome">Nome Completo</label>
+                    <input type="text" class="form-control" placeholder="Seu nome completo" id="nome" name="nome" required>
+                </div>
+                <div class="col">
+                    <label class="mb-2" style="font-weight: 600;" for="cpf">CPF</label>
+                    <input type="text" class="form-control" placeholder="000.000.000-00" id="cpf" name="cpf" required oninput="formatar_cpf(this)">
+                </div>
+            </div> 
+            
+            <div class="mb-4">
+                <label class="mb-2" style="font-weight: 600;" for="email">E-mail</label>
+                <input type="email" class="form-control" placeholder="Seu.email@gmail.com" id="email" name="email" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="mb-2" style="font-weight: 600;" for="telefone_pessoa">Telefone</label>
+                <input type="text" class="form-control" placeholder="(00) 00000-0000" id="telefone_pessoa" name="telefone_pessoa" required onkeyup="formatar_telefone(this)">
+            </div>
+
+            <div class="custom-select-container mb-1" id="selectPessoa">
+                <label class="mb-2" style="font-weight: 600;" for="deficiencia">Tipo de deficiência</label>
+                <div class="select-trigger" tabindex="0">
+                    <span>Selecione o tipo</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                
+                <ul class="custom-options">
+                    <li data-value="1" onclick="selecionar_op(this)">Física</li>
+                    <li data-value="2" onclick="selecionar_op(this)">Auditiva</li>
+                    <li data-value="3" onclick="selecionar_op(this)">Visual</li>
+                    <li data-value="4" onclick="selecionar_op(this)">Intelectual</li>
+                    <li data-value="5" onclick="selecionar_op(this)">Psicossocial</li>
+                    <li data-value="6" onclick="selecionar_op(this)">Múltipla</li>
+                </ul>
+                
+                <input type="hidden" name="deficiencia" id="deficiencia_input">
+            </div>
+            <p class="mb-4" style="font-style: italic;">Essa informação te conecta às vagas adequadas</p>
+        </div>
+        <!--Fim do cadastro de Pessoa-->
+
+        <!--Cadastro de Empresa-->
+        <div class="" id="empresa" style="display: none;">
+           
+            <div class="mb-4 mt-4">
+                <label class="mb-2" style="font-weight: 600;" for="razao_social">Razão Social</label>
+                <input type="text" class="form-control" placeholder="Nome da Empresa" id="razao_social" name="razao_social" required>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <label style="font-weight: 600;" for="cnpj">CNPJ</label>
+                    <input type="text" class="form-control" placeholder="00.000.000/0001-00" id="cnpj" name="cnpj" required oninput="formatar_cnpj(this)">
+                </div>
+                <div class="col">
+                    <div class="custom-select-container mb-1" id="selectEmpresa">
+                        <label style="font-weight: 600;" for="setor">Setor</label>
+                        <div class="select-trigger" tabindex="0">
+                            <span>Selecione o tipo</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <ul class="custom-options">
+                            <li data-value="1" onclick="selecionar_op(this)">Tecnologia</li>
+                            <li data-value="2" onclick="selecionar_op(this)">Saúde</li>
+                            <li data-value="3" onclick="selecionar_op(this)">Educação</li>
+                            <li data-value="4" onclick="selecionar_op(this)">Comércio</li>
+                            <li data-value="5" onclick="selecionar_op(this)">Indústria</li>
+                            <li data-value="6" onclick="selecionar_op(this)">Serviços</li>
+                            <li data-value="7" onclick="selecionar_op(this)">Outros</li>
+                        </ul>
+                
+                        <input type="hidden" name="setor" id="setor_input">
+                    </div>
+                </div>
+            </div> 
+
+            <div class="mb-4">
+                <label class="mb-2" style="font-weight: 600;" for="nome_responsavel">Nome do Responsável</label>
+                <input type="text" class="form-control" placeholder="Nome do responsável" id="nome_responsavel" name="nome_responsavel" required>
+            </div>
+
+             <div class="mb-4">
+                <label class="mb-2" style="font-weight: 600;" for="email_corporativo">E-mail Corporativo</label>
+                <input type="text" class="form-control" placeholder="contato@empresa.com" id="email_corporativo" name="email_corporativo" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="mb-2" style="font-weight: 600;" for="telefone_empresa">Telefone</label>
+                <input type="text" class="form-control" placeholder="(00) 00000-0000" id="telefone_empresa" name="telefone_empresa" required onkeyup="formatar_telefone(this)">
+            </div>
+        </div>
+        <!--Fim do cadastro de Empresa-->
+
+        <div class="mb-1">
+            <label class="mb-2" style="font-weight: 600;" for="senha">Senha</label>
+            <div class="row senha_pai">
+                <input class="col-11 input_senha" type="password" class="form-control" placeholder="Sua senha" id="senha" name="senha" required onkeyup="verificar_senha()">
+                <button class="col-1 alterna_senha"  type="button" id="mostrar" onclick="alternarsenha(this)"><i class="fa fa-eye"></i></button>
+            </div>
+        </div>
+        <p class="mb-4" style="font-style: italic;" id="hint_senha">Mínimo de 8 caracteres com letras e números</p>
+
+       
+
+        <div class="mb-4 mt-4" id="aceitar_termos">
+            <input type="checkbox" class="form-check-input" id="aceitar_termos">
+            <label class="form-check-label" for="aceitar_termos">Li e aceito os Termos de Uso e a Política de Privacidade</label>
+        </div>
+
+        <button type="submit" class="btn btn_cadastrar" id="btn_cadastrar">Criar Conta</button>
+
+        <div class="mt-3 ja_tem_conta" id="ja_tem_conta">
+            <p>Já tem uma conta? <a href="Login.html">Faça login</a></p>
+        </div>
+    </form>
+    
+    <br>
+    <br>
+    <br>
+
+
+
+
+    <script src="../scripts/contato.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
+</html>

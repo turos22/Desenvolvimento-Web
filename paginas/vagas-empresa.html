@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Incluir+ — Painel da empresa para gerenciar vagas de emprego." />
+  <title>Gerenciar Vagas | Incluir+</title>
+  <link rel="stylesheet" href="../estilos/pagina_inicial.css" />
+  <link rel="stylesheet" href="../estilos/vagas_gui.css" />
+  <link rel="stylesheet" href="../estilos/vagas-empresa.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script type="module" src="../scripts/funcoes.js"></script>
+  <script>
+    window.onload = function(){
+        carregar_nome_usuario();
+        verificar_login_usuario();
+    }
+  </script>
+  
+</head>
+<body>
+
+  <!-- ============================
+       NAVBAR
+       ============================ -->
+  <nav class="custom-navbar" id="navbar_custom" role="navigation" aria-label="Navegação principal">
+    <div class="nav-container">
+
+      <a href="index.html" class="nav-logo" aria-label="Incluir+ — Página inicial">
+        <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+        <span>Incluir+</span>
+      </a>
+
+      <ul class="custom-nav-links" id="navLinks" role="list">
+         <li><a href="index.html" class="active"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li id="dashboard_option_nav"><a href="contato.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Dashboard</a></li>
+      </ul>
+
+      <div class="custom-nav-actions">
+        <div id="cabec_padrao">
+            <a href="Login.html" class="btn btn-outline">Entrar</a>
+            <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+        </div>
+        <div style="display: none; align-items: center; justify-content: center; gap: 10px;" id="div_logado">
+            <i class="fa-solid fa-user usu_logado" onclick="redirecionar('Cadastro.html')" style="cursor: pointer;"></i>
+            <span id="nome_usuario" onclick="redirecionar('Cadastro.html')"></span>
+            <button type="button" class="btn btn-light me-2" id="bb_sair" onclick="deslogar()">Sair</button>
+        </div>
+      </div>
+
+      <button class="custom-nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div class="custom-nav-mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html"><i class="fa-solid fa-house" aria-hidden="true"></i> Início</a></li>
+        <li><a href="vagas_gui.html"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Vagas</a></li>
+        <li><a href="Cursos.html"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Cursos</a></li>
+        <li><a href="blog.html"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Blog</a></li>
+        <li><a href="faq.html"><i class="fa-regular fa-circle-question" aria-hidden="true"></i> FAQ</a></li>
+        <li><a href="contato.html"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contato</a></li>
+        <li><a href="Pagina_Transparencia.html"><i class="fa-solid fa-check" aria-hidden="true"></i> Página de Transparência</a></li>
+        <li class="nav-item p-2 m-1" style="display: none; font-weight: bold;" id="dashboard_option_nav">
+            <a class="text-dark/90 nav-link" href="#"><i class="fa-solid fa-chart-pie" style="margin-right: 5px;"></i>Dashboard</a>
+        </li>
+      </ul>
+      <div class="custom-nav-mobile-actions">
+        <a href="Login.html" class="btn btn-outline">Entrar</a>
+        <a href="Cadastro.html" class="btn btn-primary">Cadastrar</a>
+      </div>
+    </div>
+  </nav>
+  <main>
+
+    <!-- ============================
+         HERO / CABEÇALHO DA EMPRESA
+         ============================ -->
+    <section class="jobs-hero empresa-hero" aria-labelledby="empresa-hero-title">
+      <div class="empresa-hero-content">
+        <div>
+          <p class="empresa-hero-label">
+            <i class="fa-regular fa-building" aria-hidden="true"></i> TechCorp Brasil
+          </p>
+          <h1 id="empresa-hero-title">Gerenciar Vagas</h1>
+          <p class="empresa-hero-sub">Adicione, edite ou remova suas vagas publicadas na plataforma</p>
+        </div>
+        <button class="btn btn-add-vaga" id="btnNovaVaga" aria-label="Adicionar nova vaga">
+          <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          Nova Vaga
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================
+         PAINEL DE GERENCIAMENTO
+         ============================ -->
+    <div class="jobs-page">
+      <div class="container">
+
+        <!-- Barra de ações -->
+        <div class="empresa-toolbar">
+          <div class="empresa-search-wrap">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input
+              type="search"
+              id="empresaSearch"
+              placeholder="Buscar nas suas vagas..."
+              aria-label="Buscar nas suas vagas"
+              autocomplete="off"
+            />
+          </div>
+          <div class="select-wrap sort-wrap">
+            <select id="empresaSort" aria-label="Ordenar por">
+              <option value="recentes">Mais recentes</option>
+              <option value="antigas">Mais antigas</option>
+              <option value="ativas">Ativas primeiro</option>
+            </select>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </div>
+        </div>
+
+        <!-- Estatísticas rápidas -->
+        <div class="empresa-stats" role="list" aria-label="Estatísticas das vagas">
+          <div class="empresa-stat-card" role="listitem">
+            <span class="empresa-stat-number" id="statTotal">4</span>
+            <span class="empresa-stat-label">Total de vagas</span>
+          </div>
+          <div class="empresa-stat-card empresa-stat-active" role="listitem">
+            <span class="empresa-stat-number" id="statAtivas">3</span>
+            <span class="empresa-stat-label">Ativas</span>
+          </div>
+          <div class="empresa-stat-card empresa-stat-paused" role="listitem">
+            <span class="empresa-stat-number" id="statPausadas">1</span>
+            <span class="empresa-stat-label">Pausadas</span>
+          </div>
+        </div>
+
+        <!-- Lista de vagas gerenciáveis -->
+        <ul class="empresa-jobs-list" id="empresaJobsList" role="list" aria-label="Suas vagas">
+
+
+        </ul>
+
+        <!-- Estado vazio -->
+        <div class="jobs-empty" id="empresaEmpty" hidden>
+          <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+          <h3>Nenhuma vaga encontrada</h3>
+          <p>Tente outro termo de busca ou adicione uma nova vaga.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============================
+       MODAL — ADICIONAR / EDITAR VAGA
+       ============================ -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+
+      <!-- Barra de acento no topo -->
+      <div class="modal-accent-bar" aria-hidden="true"></div>
+
+      <!-- Cabeçalho -->
+      <div class="modal-header">
+        <div class="modal-header-info">
+          <div class="modal-header-icon" aria-hidden="true">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div>
+            <h2 id="modalTitle">Nova Vaga</h2>
+            <p id="modalSubtitle">Preencha as informações para publicar a vaga na plataforma</p>
+          </div>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Fechar modal">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <form class="modal-form" id="vagaForm" novalidate>
+        <input type="hidden" id="vagaId" />
+
+        <!-- Seção 1: Informações básicas -->
+        <div class="modal-section">
+          <div class="modal-section-title">
+            <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+            <span>Informações básicas</span>
+          </div>
+          <div class="modal-section-body">
+            <div class="form-group">
+              <label for="vTitulo">
+                Título da vaga
+                <span class="field-required" aria-hidden="true">*</span>
+              </label>
+              <div class="input-icon-wrap">
+                <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                <input type="text" id="vTitulo" placeholder="Ex: Analista de Suporte Técnico" required aria-required="true" />
+              </div>
+              <span class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="vDescricao">
+                Descrição da vaga
+                <span class="field-required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="vDescricao"
+                rows="4"
+                placeholder="Descreva as responsabilidades, requisitos e benefícios da vaga..."
+                required
+                aria-required="true"
+              ></textarea>
+              <span class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seção 2: Localização e contrato -->
+        <div class="modal-section">
+          <div class="modal-section-title">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span>Localização e Contrato</span>
+          </div>
+          <div class="modal-section-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vLocal">
+                  Localização
+                  <span class="field-required" aria-hidden="true">*</span>
+                </label>
+                <div class="input-icon-wrap">
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  <input type="text" id="vLocal" placeholder="Ex: São Paulo, SP ou Remoto" required aria-required="true" />
+                </div>
+                <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="vModalidade">Modalidade</label>
+                <div class="select-wrap">
+                  <select id="vModalidade">
+                    <option value="">Selecione...</option>
+                    <option value="presencial">Presencial</option>
+                    <option value="hibrido">Híbrido</option>
+                    <option value="homeoffice">Home Office</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vContrato">Tipo de contrato</label>
+                <div class="select-wrap">
+                  <select id="vContrato">
+                    <option value="">Selecione...</option>
+                    <option value="clt">CLT</option>
+                    <option value="pj">PJ</option>
+                    <option value="estagio">Estágio</option>
+                    <option value="freelance">Freelance</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="vExperiencia">Nível de experiência</label>
+                <div class="select-wrap">
+                  <select id="vExperiencia">
+                    <option value="">Selecione...</option>
+                    <option value="junior">Júnior</option>
+                    <option value="pleno">Pleno</option>
+                    <option value="senior">Sênior</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seção 3: Remuneração e Benefícios -->
+        <div class="modal-section">
+          <div class="modal-section-title">
+            <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
+            <span>Remuneração</span>
+          </div>
+          <div class="modal-section-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vSalarioMin">Salário mínimo</label>
+                <div class="input-icon-wrap">
+                  <span class="input-prefix">R$</span>
+                  <input type="number" id="vSalarioMin" placeholder="0,00" min="0" step="0.01" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="vSalarioMax">Salário máximo</label>
+                <div class="input-icon-wrap">
+                  <span class="input-prefix">R$</span>
+                  <input type="number" id="vSalarioMax" placeholder="0,00" min="0" step="0.01" />
+                </div>
+              </div>
+            </div>
+            <p class="field-hint"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Deixe em branco para exibir "A combinar"</p>
+          </div>
+        </div>
+
+        <!-- Seção 4: Acessibilidade -->
+        <div class="modal-section">
+          <div class="modal-section-title">
+            <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+            <span>Acessibilidade</span>
+          </div>
+          <div class="modal-section-body">
+            <p class="modal-section-desc">Selecione os tipos de deficiência aceitos para esta vaga</p>
+            <div class="modal-checkboxes">
+              <label class="modal-checkbox-option">
+                <input type="checkbox" name="vDeficiencia" value="fisica" />
+                <span class="modal-checkbox-box" aria-hidden="true"></span>
+                <span>Deficiência Física</span>
+              </label>
+              <label class="modal-checkbox-option">
+                <input type="checkbox" name="vDeficiencia" value="auditiva" />
+                <span class="modal-checkbox-box" aria-hidden="true"></span>
+                <span>Deficiência Auditiva</span>
+              </label>
+              <label class="modal-checkbox-option">
+                <input type="checkbox" name="vDeficiencia" value="visual" />
+                <span class="modal-checkbox-box" aria-hidden="true"></span>
+                <span>Deficiência Visual</span>
+              </label>
+              <label class="modal-checkbox-option">
+                <input type="checkbox" name="vDeficiencia" value="intelectual" />
+                <span class="modal-checkbox-box" aria-hidden="true"></span>
+                <span>Deficiência Intelectual</span>
+              </label>
+              <label class="modal-checkbox-option modal-checkbox-full">
+                <input type="checkbox" name="vDeficiencia" value="todas" />
+                <span class="modal-checkbox-box" aria-hidden="true"></span>
+                <span>Todas as Deficiências</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rodapé do modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="modalCancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="modalSubmit">
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            Publicar Vaga
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================
+       MODAL DE CONFIRMAÇÃO DE EXCLUSÃO
+       ============================ -->
+  <div class="modal-overlay" id="deleteOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+    <div class="modal-box modal-box-sm">
+      <div class="modal-header">
+        <h2 id="deleteTitle">Excluir vaga</h2>
+        <button class="modal-close" id="deleteClose" aria-label="Fechar">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="delete-body">
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+        <p>Tem certeza que deseja excluir a vaga <strong id="deleteJobName"></strong>? Esta ação não pode ser desfeita.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="deleteCancelBtn">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="deleteConfirmBtn">
+          <i class="fa-solid fa-trash" aria-hidden="true"></i> Excluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       FOOTER
+       ============================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">
+            <i class="fa-solid fa-wheelchair" aria-hidden="true"></i>
+            <span>Incluir+</span>
+          </a>
+          <p>Conectando talentos a oportunidades. Uma plataforma inclusiva para pessoas com deficiência.</p>
+          <address class="footer-contact">
+            <a href="mailto:contato@incluirmais.com.br">
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i> contato@incluirmais.com.br
+            </a>
+            <a href="tel:+5511999999999">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i> (11) 99999-9999
+            </a>
+            <span>
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i> São Paulo, SP – Brasil
+            </span>
+          </address>
+        </div>
+        <div class="footer-links">
+          <h4>Plataforma</h4>
+          <ul>
+            <li><a href="vagas.html">Vagas</a></li>
+            <li><a href="#">Cursos</a></li>
+            <li><a href="#">Empresas</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Guia de Acessibilidade</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Institucional</h4>
+          <ul>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos de Uso</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Incluir+. Todos os direitos reservados.</p>
+        <div class="footer-social" aria-label="Redes sociais">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../scripts/pagina_inicial.js"></script>
+  <script src="../scripts/lista_vagas.js"></script>
+  <script src="../scripts/vagas-empresa.js"></script>
+</body>
+</html>

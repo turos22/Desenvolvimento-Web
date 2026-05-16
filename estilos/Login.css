@@ -1,0 +1,79 @@
+.form_login{ 
+    width: 30%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+.btn_login{
+    width: 100%;
+    background-color: #2b4acb;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.btn_login:hover{
+    background-color: #1a7a5c;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.ja_tem_conta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 25px;
+    margin: 0 auto;
+    width: 100%;
+    color: black;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-top: 1px solid #ccc;
+}
+
+.ja_tem_conta a{
+    color:  #2b4acb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.ja_tem_conta p{
+    padding: 0;
+    margin: 0;
+}
+
+.esqueci_senha{
+    background-color: transparent;
+    color: #2b4acb;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+
+@media (max-width: 1400px){
+    .form_login{
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px){
+    .form_login{
+        width: 90%;
+    }
+}
