@@ -383,29 +383,33 @@ function maxId()
 }
 function salvar_usuario(event){
     event.preventDefault()
-    if (!validar_nome(document.getElementById('nome')))
-    {        
-        alert("Nome inválido!");
-        return false;
-    }
-
-    if (!validar_email(document.getElementById('email')))
+    if (tipo_pessoa_cadastro == 1)
     {
-        alert("Email inválido!");
-        return false;
-    }
+        if (!validar_nome(document.getElementById('nome')))
+        {        
+            alert("Nome inválido!");
+            return false;
+        }
 
-    if (!validar_cpf(document.getElementById('cpf')))
-    {
-        alert("Nome inválido!");
-        return false;
-    }
+        if (!validar_email(document.getElementById('email')))
+        {
+            alert("Email inválido!");
+            return false;
+        }
 
-    if(!verificar_senha())
-    {
-        alert("Senha Inválida");
-        return false;
+        if (!validar_cpf(document.getElementById('cpf')))
+        {
+            alert("Nome inválido!");
+            return false;
+        }
+
+        if(!verificar_senha())
+        {
+            alert("Senha Inválida");
+            return false;
+        }
     }
+    
     const dados = new FormData(event.target);
     console.log("entrei");
     carregar_array_usuarios();
