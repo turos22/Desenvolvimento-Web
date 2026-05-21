@@ -7,7 +7,6 @@
   <title>Meu Painel | Incluir+</title>
   <link rel="stylesheet" href="../estilos/pagina_inicial.css" />
   <link rel="stylesheet" href="../estilos/vagas_gui.css" />
-  <link rel="stylesheet" href="../estilos/vagas-empresa.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script type="module" src="../scripts/funcoes.js"></script>
   <script>
@@ -243,5 +242,163 @@
   <script src="../scripts/pagina_inicial.js"></script>
   <script src="../scripts/lista_vagas.js"></script>
   <script src="../scripts/dashboard_usuario.js"></script>
+  <script src="../scripts/vagas_gui.js"></script>
+
+  <!-- =========================
+      MODAL DETALHES DA VAGA
+  ========================= -->
+
+  <div
+    class="modal-overlay"
+    id="modalDetalhesOverlay"
+  >
+
+    <div class="modal-box modal-detalhes">
+
+      <!-- HEADER -->
+      <div class="modal-header">
+
+        <div>
+
+          <h2 id="detalhesTitulo">
+            Título da vaga
+          </h2>
+
+          <p id="detalhesEmpresa">
+            Empresa
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          onclick="fecharModalDetalhes()"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+
+      <!-- BODY -->
+      <div class="modal-body detalhes-body">
+
+        <!-- DESCRIÇÃO -->
+        <div class="detalhe-bloco">
+
+          <h3>Descrição</h3>
+
+          <p id="detalhesDescricao"></p>
+
+        </div>
+
+
+        <!-- GRID -->
+        <div class="detalhe-grid">
+
+          <div class="detalhe-item">
+
+            <span>Modalidade</span>
+
+            <strong id="detalhesModalidade"></strong>
+
+          </div>
+
+          <div class="detalhe-item">
+
+            <span>Contrato</span>
+
+            <strong id="detalhesContrato"></strong>
+
+          </div>
+
+          <div class="detalhe-item">
+
+            <span>Escolaridade</span>
+
+            <strong id="detalhesEscolaridade"></strong>
+
+          </div>
+
+          <div class="detalhe-item">
+
+            <span>Salário</span>
+
+            <strong id="detalhesSalario"></strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- ENDEREÇO -->
+        <div
+          class="detalhe-bloco"
+          id="blocoEndereco"
+        >
+
+          <h3>Endereço</h3>
+
+          <p id="detalhesEndereco"></p>
+
+        </div>
+
+
+        <!-- BENEFÍCIOS -->
+        <div class="detalhe-bloco">
+
+          <h3>Benefícios</h3>
+
+          <p id="detalhesBeneficios"></p>
+
+        </div>
+
+
+        <!-- REQUISITOS -->
+        <div class="detalhe-bloco">
+
+          <h3>Requisitos</h3>
+
+          <p id="detalhesRequisitos"></p>
+
+        </div>
+
+
+        <!-- REQUISITOS OPCIONAIS -->
+        <div class="detalhe-bloco">
+
+          <h3>Requisitos Opcionais</h3>
+
+          <p id="detalhesReqOpc"></p>
+
+        </div>
+
+
+        <!-- RESPONSABILIDADES -->
+        <div class="detalhe-bloco">
+
+          <h3>Responsabilidades</h3>
+
+          <p id="detalhesResponsabilidades"></p>
+
+        </div>
+
+
+        <!-- DEFICIÊNCIAS -->
+        <div class="detalhe-bloco">
+
+          <h3>Deficiências Aceitas</h3>
+
+          <p id="detalhesDeficiencia"></p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </body>
 </html>

@@ -144,9 +144,9 @@ function renderizarMinhasVagas(termoBusca = "") {
         </div>
         <div class="job-item-footer">
           <span class="job-item-salary">R$ ${v.salario_minimo || "A combinar"} – R$ ${v.salario_maximo || "A combinar"}</span>
-          <a href="vagas_gui.html" class="btn btn-primary btn-sm">
-            <i class="fa-solid fa-eye" aria-hidden="true"></i> Ver Detalhes
-          </a>
+          <button class="btn btn-primary btn-sm btn-detalhes" onclick="abrirDetalhesVaga(${v.id})">
+              Ver Detalhes
+            </button>
         </div>
       </li>
     `;

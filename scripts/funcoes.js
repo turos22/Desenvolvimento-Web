@@ -766,7 +766,6 @@ async function preencherCEPAPI(campo){
     }
     else{
         alert("CEP inválido!");
-        campo.focus();
     }
     
 }

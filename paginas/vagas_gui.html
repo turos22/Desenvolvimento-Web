@@ -169,7 +169,7 @@
                 <span>Híbrido</span>
               </label>
               <label class="filter-option">
-                <input type="checkbox" name="modalidade" value="homeoffice" />
+                <input type="checkbox" name="modalidade" value="home" />
                 <span>Home Office</span>
               </label>
             </fieldset>
@@ -241,6 +241,99 @@
     </div>
 
   </main>
+
+  <!-- ============================
+       MODAL DE DETALHES DA VAGA
+       ============================ -->
+
+  <div class="modal-overlay" id="modalDetalhesOverlay">
+
+    <div class="modal-box modal-detalhes">
+
+      <div class="modal-header">
+        <div>
+          <h2 id="detalhesTitulo"></h2>
+          <p id="detalhesEmpresa"></p>
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="fecharModalDetalhes()"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body detalhes-body">
+
+        <div class="detalhe-bloco">
+          <h3>Descrição</h3>
+          <p id="detalhesDescricao"></p>
+        </div>
+
+        <div class="detalhe-grid">
+
+          <div class="detalhe-item">
+            <span>Modalidade</span>
+            <strong id="detalhesModalidade"></strong>
+          </div>
+
+          <div class="detalhe-item">
+            <span>Contrato</span>
+            <strong id="detalhesContrato"></strong>
+          </div>
+
+          <div class="detalhe-item">
+            <span>Escolaridade</span>
+            <strong id="detalhesEscolaridade"></strong>
+          </div>
+
+          <div class="detalhe-item">
+            <span>Salário</span>
+            <strong id="detalhesSalario"></strong>
+          </div>
+
+        </div>
+
+        <div
+          class="detalhe-bloco"
+          id="blocoEndereco"
+        >
+          <h3>Endereço</h3>
+
+          <p id="detalhesEndereco"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Benefícios</h3>
+          <p id="detalhesBeneficios"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Requisitos</h3>
+          <p id="detalhesRequisitos"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Requisitos Opcionais</h3>
+          <p id="detalhesReqOpc"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Responsabilidades</h3>
+          <p id="detalhesResponsabilidades"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Deficiências Aceitas</h3>
+          <p id="detalhesDeficiencia"></p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
   <!-- ============================
        FOOTER

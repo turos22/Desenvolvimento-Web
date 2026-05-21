@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Incluir+ — Painel da empresa para gerenciar vagas de emprego." />
   <title>Gerenciar Vagas | Incluir+</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="../estilos/pagina_inicial.css" />
+  <link rel="stylesheet" href="../estilos/cadastro.css">
   <link rel="stylesheet" href="../estilos/vagas_gui.css" />
   <link rel="stylesheet" href="../estilos/vagas-empresa.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -205,7 +208,7 @@
               </label>
               <div class="input-icon-wrap">
                 <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-                <input type="text" id="vTitulo" placeholder="Ex: Analista de Suporte Técnico" required aria-required="true" />
+                <input type="text" id="vTitulo" placeholder="Ex: Analista de Suporte Técnico" required aria-required="true" onblur="validateField('vTitulo','Informe o título da vaga.')" />
               </div>
               <span class="field-error" role="alert" aria-live="polite"></span>
             </div>
@@ -217,9 +220,79 @@
               <textarea
                 id="vDescricao"
                 rows="4"
-                placeholder="Descreva as responsabilidades, requisitos e benefícios da vaga..."
+                placeholder="Descreva brevemente a vaga..."
                 required
                 aria-required="true"
+                onblur="validateField('vDescricao','Informe a descrição da vaga.')"
+              ></textarea>
+              <span class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="vBeneficios">
+                Benefícios oferecidos
+                <span class="field-required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="vBeneficios"
+                rows="4"
+                placeholder="Descreva os benefícios oferecidos pela empresa..."
+                required
+                aria-required="true"
+                onblur="validateField('vBeneficios','Informe os benefícios oferecidos.')"
+              ></textarea>
+              <span class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="vRequisitos">
+                Requisitos necessários
+                <span class="field-required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="vRequisitos"
+                rows="4"
+                placeholder="Descreva os requisitos necessários para o cargo..."
+                required
+                aria-required="true"
+                onblur="validateField('vRequisitos','Informe os requisitos necessários.')"
+              ></textarea>
+              <span class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="vRequisitosOpcionais">
+                Requisitos opcionais
+              </label>
+              <textarea
+                id="vRequisitosOpcionais"
+                rows="4"
+                placeholder="Descreva os requisitos opcionais para o cargo..."
+              ></textarea>
+              <span class="field-error" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+                <label for="vEscolaridade">Nível de escolaridade</label>
+                <div class="select-wrap">
+                  <select id="vEscolaridade" onblur="validateField('vEscolaridade','Informe o nível de escolaridade.')">
+                    <option value="">Selecione...</option>
+                    <option value="medio">Ensino Médio</option>
+                    <option value="graduacao">Graduação</option>
+                    <option value="pos">Pós-Graduação</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+            <div class="form-group">
+              <label for="vResponsabilidades">
+                Responsabilidades do cargo
+                <span class="field-required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="vResponsabilidades"
+                rows="4"
+                placeholder="Descreva as responsabilidades do cargo..."
+                required
+                aria-required="true"
+                onblur="validateField('vResponsabilidades','Informe as responsabilidades do cargo.')"
               ></textarea>
               <span class="field-error" role="alert" aria-live="polite"></span>
             </div>
@@ -234,35 +307,62 @@
           </div>
           <div class="modal-section-body">
             <div class="form-row">
+              
               <div class="form-group">
-                <label for="vLocal">
-                  Localização
-                  <span class="field-required" aria-hidden="true">*</span>
-                </label>
-                <div class="input-icon-wrap">
-                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                  <input type="text" id="vLocal" placeholder="Ex: São Paulo, SP ou Remoto" required aria-required="true" />
+                <label for="vModalidade">Modalidade</label>
+                <div class="select-wrap">
+                  <select id="vModalidade" onblur="validateField('vModalidade','Informe a modalidade.')">
+                    <option value="">Selecione...</option>
+                    <option value="presencial">Presencial</option>
+                    <option value="hibrido">Híbrido</option>
+                    <option value="home">Home Office</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+              
+            </div>
+            <div class="hidden form-row" id="locationFields">
+              
+              <div class="form-group">
+                <label class="mb-2" style="font-weight: 600;" for="cep">CEP</label>
+                <div class="mb-2">
+                  <input type="text" class="form-control" placeholder="00000-000" id="cep" name="cep" required oninput="mascara('#####-###', this, event)" onblur="preencherCEPAPI(this)" onblur="validateField('cep','Informe o CEP.')">
                 </div>
                 <span class="field-error" role="alert" aria-live="polite"></span>
               </div>
               <div class="form-group">
-                <label for="vModalidade">Modalidade</label>
-                <div class="select-wrap">
-                  <select id="vModalidade">
-                    <option value="">Selecione...</option>
-                    <option value="presencial">Presencial</option>
-                    <option value="hibrido">Híbrido</option>
-                    <option value="homeoffice">Home Office</option>
-                  </select>
-                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-                </div>
+                <label class="mb-2" style="font-weight: 600;" for="rua">Rua</label>
+                   <input type="text" class="form-control" placeholder="Rua a..." id="rua" name="rua" required onblur="validateField('rua','Informe a rua.')">
+                   <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label class="mb-2" style="font-weight: 600;" for="bairro">Bairro</label>
+                    <input type="text" class="form-control" placeholder="Jardim..." id="bairro" name="bairro" required onblur="validateField('bairro','Informe o bairro.')">
+                    <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label class="mb-2" style="font-weight: 600;" for="numero_end">Número</label>
+                   <input type="text" class="form-control" placeholder="123" id="numero_end" name="numero_end" required onblur="validateField('numero_end','Informe o número.')">
+                   <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label class="mb-2" style="font-weight: 600;" for="cidade">Cidade</label>
+                    <input type="text" class="form-control" placeholder="São Paulo..." id="cidade" name="cidade" required onblur="validateField('cidade','Informe a cidade.')">
+                    <span class="field-error" role="alert" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label class="mb-2" style="font-weight: 600;" for="uf">UF</label>
+                   <input type="text" class="form-control" placeholder="SP" id="uf" name="uf" maxlength="2" required oninput="this.value = this.value.toUpperCase()" onblur="validateField('uf','Informe a UF.')">
+                   <span class="field-error" role="alert" aria-live="polite"></span>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="vContrato">Tipo de contrato</label>
                 <div class="select-wrap">
-                  <select id="vContrato">
+                  <select id="vContrato" onblur="validateField('vContrato','Informe o tipo de contrato.')">
                     <option value="">Selecione...</option>
                     <option value="clt">CLT</option>
                     <option value="pj">PJ</option>
@@ -271,11 +371,12 @@
                   </select>
                   <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
                 </div>
+                <span class="field-error" role="alert" aria-live="polite"></span>
               </div>
               <div class="form-group">
                 <label for="vExperiencia">Nível de experiência</label>
                 <div class="select-wrap">
-                  <select id="vExperiencia">
+                  <select id="vExperiencia" onblur="validateField('vExperiencia','Informe o nível de experiência.')">
                     <option value="">Selecione...</option>
                     <option value="junior">Júnior</option>
                     <option value="pleno">Pleno</option>
@@ -283,6 +384,7 @@
                   </select>
                   <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
                 </div>
+                <span class="field-error" role="alert" aria-live="polite"></span>
               </div>
             </div>
           </div>

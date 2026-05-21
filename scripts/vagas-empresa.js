@@ -38,14 +38,24 @@ function renderizarVagas(listaVagas, mostrarInativas = false) {
             data-titulo="${v.titulo}"
             data-empresa="${v.empresa}"
             data-descricao="${v.descricao}"
-            data-local="${v.local}"
             data-modalidade="${v.modalidade}"
             data-contrato="${v.contrato}"
             data-deficiencia="${v.deficiencia}"
             data-salario-min="${v.salario_minimo}"
             data-salario-max="${v.salario_maximo}"
             data-status="${v.status}"
-            data-tempo="${dias}">
+            data-tempo="${dias}"
+            data-rua="${v.endereco.rua}"
+            data-numero="${v.endereco.numero}"
+            data-bairro="${v.endereco.bairro}"
+            data-cep="${v.endereco.cep}"
+            data-cidade="${v.endereco.cidade}"
+            data-estado="${v.endereco.estado}"
+            data-escolaridade="${v.escolaridade}"
+            data-beneficios="${v.beneficios}"
+            data-requisitos="${v.requisitos}"
+            data-requisitos-opcionais="${v.requisitos_opcionais}"
+            data-responsabilidades="${v.responsabilidades}">
             <div class="empresa-job-main">
               <div class="job-item-header">
                 <div>
@@ -60,9 +70,17 @@ function renderizarVagas(listaVagas, mostrarInativas = false) {
                 ${v.descricao}
               </p>
               <div class="job-item-meta">
-                <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${v.local}</span>
-                <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há ${dias} dias</span>
-              </div>
+              ${v.modalidade !== 'home' ? `
+                <span>
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  ${v.endereco.cidade}, ${v.endereco.estado}
+                </span>
+              ` : ''}
+              <span>
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                Há ${dias} dias
+              </span>
+            </div>
               <div class="job-item-tags">
                 <span class="tag tag-clt">${formatarContrato(v.contrato)}</span>
             <span class="tag tag-mode">${formatarModalidade(v.modalidade)}</span>
@@ -129,6 +147,15 @@ function formatarStatus(mod) {
     }
 }
 
+function formatarEscolaridade(mod) {
+    switch(mod) {
+        case "medio": return "Ensino Médio";
+        case "graduacao": return "Graduação";
+        case "pos": return "Pós-Graduação";
+        default: return mod;
+    }
+}
+
 renderizarVagas(vagas, true);
 
 /* ------------------------------------------
@@ -176,12 +203,22 @@ function openModal(editId = null) {
     modalSubmit.innerHTML = '<i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Salvar Alterações';
     document.getElementById('vagaId').value    = editId;
     document.getElementById('vTitulo').value   = card.dataset.titulo   || '';
-    document.getElementById('vLocal').value    = card.dataset.local    || '';
     document.getElementById('vDescricao').value= card.dataset.descricao|| '';
     document.getElementById('vModalidade').value = card.dataset.modalidade || 'presencial';
     document.getElementById('vContrato').value   = card.dataset.contrato   || 'clt';
     document.getElementById('vSalarioMin').value = card.dataset.salarioMin || '';
     document.getElementById('vSalarioMax').value = card.dataset.salarioMax || '';
+    document.getElementById('cep').value = card.dataset.cep || '';
+    document.getElementById('rua').value = card.dataset.rua || '';
+    document.getElementById('bairro').value = card.dataset.bairro || '';
+    document.getElementById('numero_end').value = card.dataset.numero || '';
+    document.getElementById('cidade').value = card.dataset.cidade || '';
+    document.getElementById('uf').value = card.dataset.estado || '';
+    document.getElementById('vEscolaridade').value = card.dataset.escolaridade || 'medio';
+    document.getElementById('vBeneficios').value = card.dataset.beneficios || '';
+    document.getElementById('vRequisitos').value = card.dataset.requisitos || '';
+    document.getElementById('vRequisitosOpcionais').value = card.dataset.requisitosOpcionais || '';
+    document.getElementById('vResponsabilidades').value = card.dataset.responsabilidades || '';
 
     const defSelected = (card.dataset.deficiencia || '').split(' ');
     document.querySelectorAll('[name="vDeficiencia"]').forEach(cb => {
@@ -217,17 +254,28 @@ vagaForm.addEventListener('submit', e => {
 
   const id       = document.getElementById('vagaId').value;
   const titulo   = document.getElementById('vTitulo').value.trim();
-  const local    = document.getElementById('vLocal').value.trim();
   const descricao= document.getElementById('vDescricao').value.trim();
   const modalidade = document.getElementById('vModalidade').value;
   const contrato   = document.getElementById('vContrato').value;
   const salMin   = document.getElementById('vSalarioMin').value;
   const salMax   = document.getElementById('vSalarioMax').value;
+  const rua = document.getElementById('rua').value.trim();
+  const numero = document.getElementById('numero_end').value.trim();
+  const bairro = document.getElementById('bairro').value.trim();
+  const cep = document.getElementById('cep').value.trim();
+  const cidade = document.getElementById('cidade').value.trim();
+  const estado = document.getElementById('uf').value.trim();
   const defList  = Array.from(document.querySelectorAll('[name="vDeficiencia"]:checked')).map(cb => cb.value);
+  const escolaridade = document.getElementById('vEscolaridade').value;
+  const beneficios = document.getElementById('vBeneficios').value.trim();
+  const requisitos = document.getElementById('vRequisitos').value.trim();
+  const reqOpcionais = document.getElementById('vRequisitosOpcionais').value.trim();
+  const responsabilidades = document.getElementById('vResponsabilidades').value.trim();
 
-  const modeLabel = { presencial: 'Presencial', hibrido: 'Híbrido', homeoffice: 'Home Office' };
+  const modeLabel = { presencial: 'Presencial', hibrido: 'Híbrido', home: 'Home Office' };
   const ctLabel   = { clt: 'CLT', pj: 'PJ', estagio: 'Estágio' };
   const defLabels = { fisica:'Deficiência Física', auditiva:'Deficiência Auditiva', visual:'Deficiência Visual', intelectual:'Deficiência Intelectual', todas:'Todas as Deficiências' };
+  const escolaridadeLabel = { 'medio': 'Ensino Médio', graduacao: 'Graduação', 'pos': 'Pós-Graduação' };
 
   const salarioStr = (salMin && salMax)
     ? `R$ ${Number(salMin).toLocaleString('pt-BR')} – R$ ${Number(salMax).toLocaleString('pt-BR')}`
@@ -241,13 +289,25 @@ vagaForm.addEventListener('submit', e => {
 
     if (vaga) {
       vaga.titulo = titulo;
-      vaga.local = local;
       vaga.descricao = descricao;
       vaga.modalidade = modalidade;
       vaga.contrato = contrato;
       vaga.salario_minimo = salMin || 0;
       vaga.salario_maximo = salMax || 0;
       vaga.deficiencia = defList.join(" ");
+      vaga.escolaridade = escolaridade;
+      vaga.beneficios = beneficios;
+      vaga.requisitos = requisitos;
+      vaga.requisitos_opcionais = reqOpcionais;
+      vaga.responsabilidades = responsabilidades;
+      vaga.endereco = {
+        rua: rua,
+        numero: numero,
+        bairro: bairro,
+        cep: cep,
+        cidade: cidade,
+        estado: estado
+      };
     }
 
   } else {
@@ -259,7 +319,6 @@ vagaForm.addEventListener('submit', e => {
       titulo: titulo,
       empresa: usu_logado.nome,
       empresaId: usu_logado.usu_id,
-      local: local,
       modalidade: modalidade,
       contrato: contrato,
       deficiencia: defList.join(" "),
@@ -267,7 +326,20 @@ vagaForm.addEventListener('submit', e => {
       salario_maximo: salMax || 0,
       descricao: descricao,
       data: new Date().toISOString().split("T")[0],
-      status: "ativa"
+      status: "ativa",
+      escolaridade: escolaridade,
+      beneficios: beneficios,
+      requisitos: requisitos,
+      requisitos_opcionais: reqOpcionais,
+      responsabilidades: responsabilidades,
+      endereco: {
+        rua: rua,
+        numero: numero,
+        bairro: bairro,
+        cep: cep,
+        cidade: cidade,
+        estado: estado
+      }
     };
     vagas.push(novaVaga);
   }
@@ -291,24 +363,137 @@ vagaForm.addEventListener('submit', e => {
    Validação do formulário
    ------------------------------------------ */
 function validateVagaForm() {
+
   let ok = true;
-  [
-    { id: 'vTitulo',   msg: 'Informe o título da vaga.' },
-    { id: 'vLocal',    msg: 'Informe a localização.' },
-    { id: 'vDescricao',msg: 'Escreva a descrição.' },
-  ].forEach(({ id, msg }) => {
-    const el = document.getElementById(id);
-    const err = el.closest('.form-group').querySelector('.field-error');
-    if (!el.value.trim()) {
-      el.classList.add('invalid');
-      if (err) err.textContent = msg;
+
+  let primeiroErro = null;
+
+  const campos = [
+    { id: 'vTitulo', msg: 'Informe o título da vaga.' },
+    { id: 'vDescricao', msg: 'Escreva a descrição.' },
+    
+    { id: 'vBeneficios', msg: 'Descreva os benefícios oferecidos.' },
+    { id: 'vRequisitos', msg: 'Descreva os requisitos necessários.' },
+    { id: 'vEscolaridade', msg: 'Selecione o nível de escolaridade.' },
+    { id: 'vResponsabilidades', msg: 'Descreva as responsabilidades do cargo.' },
+
+    { id: 'vModalidade', msg: 'Selecione a modalidade.' },
+    { id: 'vContrato', msg: 'Selecione o tipo de contrato.' },
+
+    { id: 'cep', msg: 'Informe o CEP.' },
+    { id: 'rua', msg: 'Informe a rua.' },
+    { id: 'bairro', msg: 'Informe o bairro.' },
+    { id: 'numero_end', msg: 'Informe o número.' },
+    { id: 'cidade', msg: 'Informe a cidade.' },
+    { id: 'uf', msg: 'Informe a UF.' }
+  ];
+
+  campos.forEach(campo => {
+
+    const valid =
+      validateField(campo.id, campo.msg);
+
+    if (!valid) {
+
       ok = false;
-    } else {
-      el.classList.remove('invalid');
-      if (err) err.textContent = '';
+
+      // salva apenas o primeiro erro
+      if (!primeiroErro) {
+        primeiroErro =
+          document.getElementById(campo.id);
+      }
     }
   });
+
+  // foco no primeiro erro
+  if (primeiroErro) {
+
+    primeiroErro.focus();
+
+    primeiroErro.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }
+
   return ok;
+}
+
+function validateField(id, msg) {
+
+  const el = document.getElementById(id);
+
+  if (!el) return true;
+
+  const modalidade =
+    document.getElementById('vModalidade')?.value;
+
+  const camposEndereco = [
+    'cep',
+    'rua',
+    'bairro',
+    'numero_end',
+    'cidade',
+    'uf'
+  ];
+
+  // Ignora endereço em Home Office
+  if (
+    modalidade === 'home' &&
+    camposEndereco.includes(id)
+  ) {
+
+    limparErro(el);
+    return true;
+  }
+
+  const err =
+    el.closest('.form-group')
+      ?.querySelector('.field-error');
+
+  if (!el.value.trim()) {
+
+    el.classList.add('invalid');
+
+    el.style.borderColor = '#dc3545';
+    el.style.boxShadow =
+      '0 0 0 4px rgba(220, 53, 69, 0.25)';
+    el.style.backgroundColor = '#fff5f5';
+
+    if (err) {
+      err.textContent = msg;
+      err.style.color = '#dc3545';
+      err.style.fontWeight = '600';
+    }
+
+    return false;
+
+  } else {
+
+    limparErro(el);
+    return true;
+  }
+}
+
+function limparErro(el) {
+
+  const err =
+    el.closest('.form-group')
+      ?.querySelector('.field-error');
+
+  el.classList.remove('invalid');
+  el.classList.remove('focused-error');
+
+  el.style.borderColor = '';
+  el.style.boxShadow = '';
+  el.style.backgroundColor = '';
+  el.style.transform = '';
+
+  if (err) {
+    err.textContent = '';
+    err.style.color = '';
+    err.style.fontWeight = '';
+  }
 }
 
 /* ------------------------------------------
@@ -419,7 +604,7 @@ function filterList() {
   /* Filtrar por texto */
   let visivel = 0;
   sorted.forEach(card => {
-    const texto = (card.dataset.titulo + ' ' + card.dataset.local + ' ' + card.dataset.descricao).toLowerCase();
+    const texto = (card.dataset.titulo + ' ' + card.dataset.descricao).toLowerCase();
     const mostrar = !q || texto.includes(q);
     card.style.display = mostrar ? '' : 'none';
     if (mostrar) visivel++;
@@ -453,4 +638,19 @@ document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (modalOverlay.getAttribute('aria-hidden') === 'false') closeModal();
   if (deleteOverlay.getAttribute('aria-hidden') === 'false') closeDeleteModal();
+});
+
+const modalidadeSelect = document.getElementById("vModalidade");
+const locationFields = document.getElementById("locationFields");
+
+modalidadeSelect.addEventListener("change", () => {
+
+  const modalidade = modalidadeSelect.value;
+
+  if (modalidade === "presencial" || modalidade === "hibrido") {
+    locationFields.classList.remove("hidden");
+  } else {
+    locationFields.classList.add("hidden");
+  }
+
 });

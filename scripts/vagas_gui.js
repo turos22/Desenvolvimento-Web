@@ -45,7 +45,12 @@ function renderizarVagas(listaVagas, mostrarInativas = false) {
             ${v.descricao}
           </p>
           <div class="job-item-meta">
-            <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${v.local}</span>
+            ${v.modalidade !== 'home' ? `
+                <span>
+                  <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  ${v.endereco.cidade}, ${v.endereco.estado}
+                </span>
+              ` : ''}
             <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há ${dias} dias</span>
           </div>
           <div class="job-item-tags">
@@ -55,12 +60,93 @@ function renderizarVagas(listaVagas, mostrarInativas = false) {
           </div>
           <div class="job-item-footer">
             <span class="job-item-salary"> R$ ${v.salario_minimo} – R$ ${v.salario_maximo}</span>
-            <a href="#" class="btn btn-primary btn-sm">Ver Detalhes</a>
+            <button class="btn btn-primary btn-sm btn-detalhes" onclick="abrirDetalhesVaga(${v.id})">
+              Ver Detalhes
+            </button>
           </div>
         </li>
         `;
     });
 }
+
+function abrirDetalhesVaga(id) {
+
+  const vaga =
+    vagas.find(v => v.id == id);
+
+  if (!vaga) return;
+
+  document.getElementById('detalhesTitulo')
+    .textContent = vaga.titulo;
+
+  document.getElementById('detalhesEmpresa')
+    .textContent = vaga.empresa;
+
+  document.getElementById('detalhesDescricao')
+    .textContent = vaga.descricao || '-';
+
+  document.getElementById('detalhesModalidade')
+    .textContent = formatarModalidade(vaga.modalidade);
+
+  document.getElementById('detalhesContrato')
+    .textContent = formatarContrato(vaga.contrato);
+
+  document.getElementById('detalhesEscolaridade')
+    .textContent = formatarEscolaridade(vaga.escolaridade);
+
+  document.getElementById('detalhesSalario')
+    .textContent =
+      `R$ ${vaga.salario_minimo} - R$ ${vaga.salario_maximo}`;
+
+  // ENDEREÇO
+  const blocoEndereco =
+    document.getElementById('blocoEndereco');
+
+  if (vaga.modalidade === 'home') {
+
+    blocoEndereco.style.display = 'none';
+
+  } else {
+
+    blocoEndereco.style.display = '';
+
+    document.getElementById('detalhesEndereco')
+      .textContent =
+        `${vaga.endereco.rua}, ${vaga.endereco.numero}
+${vaga.endereco.bairro}
+${vaga.endereco.cidade} - ${vaga.endereco.estado}
+CEP: ${vaga.endereco.cep}`;
+  }
+
+  document.getElementById('detalhesBeneficios')
+    .textContent = vaga.beneficios || '-';
+
+  document.getElementById('detalhesRequisitos')
+    .textContent = vaga.requisitos || '-';
+
+  document.getElementById('detalhesReqOpc')
+    .textContent =
+      vaga.requisitos_opcionais || '-';
+
+  document.getElementById('detalhesResponsabilidades')
+    .textContent =
+      vaga.responsabilidades || '-';
+
+  document.getElementById('detalhesDeficiencia')
+    .textContent =
+      vaga.deficiencia || '-';
+
+  document.getElementById('modalDetalhesOverlay')
+    .classList.add('active');
+}
+
+function fecharModalDetalhes() {
+
+  document.getElementById('modalDetalhesOverlay')
+    .classList.remove('active');
+}
+
+
 
 function formatarModalidade(mod) {
     switch(mod) {
@@ -86,6 +172,15 @@ function formatarDeficiencia(mod) {
         case "auditiva": return "Deficiência Auditiva";
         case "visual": return "Deficiência Visual";
         case "intelectual": return "Deficiência Intelectual";
+        default: return mod;
+    }
+}
+
+function formatarEscolaridade(mod) {
+    switch(mod) {
+        case "medio": return "Ensino Médio";
+        case "graduacao": return "Graduação";
+        case "pos": return "Pós-Graduação";
         default: return mod;
     }
 }
