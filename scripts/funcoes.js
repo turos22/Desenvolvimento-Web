@@ -28,8 +28,12 @@ window.validar_cpf = validar_cpf;
 window.mascara = mascara;
 window.validar_nome = validar_nome;
 window.validar_email = validar_email;
+window.validar_mensagem = validar_mensagem;
 window.preencherCEPAPI = preencherCEPAPI;
 window.mascaraValor = mascaraValor;
+window.validar_email_corporativo = validar_email_corporativo;
+window.validar_cnpj = validar_cnpj;
+window.validar_nome_responsavel = validar_nome_responsavel;
 
 //elementos em tela
 const dashboard_option = document.getElementById('dashboard_option_nav');
@@ -261,7 +265,37 @@ function validar_nome(elemento){
         pg.textContent = "";
         return true;
     }
-}  
+}
+
+function validar_mensagem(elemento){
+    if (elemento && elemento.value){
+        let pg = document.getElementById('mensagem-hint');
+        if (elemento.value.length < 20){
+            pg.style.color = "red";
+            pg.textContent = "Mensagem deve ter no mínimo 20 caracteres";
+            return false;
+        }
+        pg.style.color = "black";
+        pg.textContent = "";
+        return true;
+    }
+}
+
+function validar_nome_responsavel(elemento){
+    if (elemento && elemento.value){
+        let pg = document.getElementById('hint_nome_responsavel');
+        var nomes  = elemento.value.split(" ");
+        if (nomes.length < 2)
+        {
+               pg.style.color = "red";
+               pg.textContent = "Nome deve ter 2 palavras";
+               return false;
+        }
+        pg.style.color = "black";
+        pg.textContent = "";
+        return true;
+    }
+}
 
 function validar_email(elemento){
     if (elemento && elemento.value){
@@ -276,6 +310,75 @@ function validar_email(elemento){
         pg.textContent = "";
         return true;
     }
+}
+
+function validar_email_corporativo(elemento){
+    if (elemento && elemento.value){
+        let pg = document.getElementById('hint_email_corporativo');
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!regex.test(elemento.value)){
+            pg.style.color = "red";
+            pg.textContent = "Email Inválido";
+            return false;
+        }
+        pg.style.color = "black";
+        pg.textContent = "";
+        return true;
+    }
+}
+
+function validar_cnpj(elemento){
+    let pg = document.getElementById('hint_cnpj');
+    var cnpj = elemento.value;
+    var ok = 1;
+    var add;
+    if (cnpj != "") {
+        cnpj = cnpj.replace(/[^\d]+/g, '');
+        if (cnpj.length != 14 ||
+                cnpj == "00000000000000" ||
+                cnpj == "11111111111111" ||
+                cnpj == "22222222222222" ||
+                cnpj == "33333333333333" ||
+                cnpj == "44444444444444" ||
+                cnpj == "55555555555555" ||
+                cnpj == "66666666666666" ||
+                cnpj == "77777777777777" ||
+                cnpj == "88888888888888" ||
+                cnpj == "99999999999999")
+                    ok = 0;
+            if (ok == 1) {
+                add = 0;
+                for (var i = 0; i < 4; i++)
+                    add += parseInt(cnpj.charAt(i)) * (5 - i);
+                for (i = 0; i < 8; i++)
+                    add += parseInt(cnpj.charAt(i + 4)) * (9 - i);
+                var rev = 11 - (add % 11);
+                if (rev == 10 || rev == 11)
+                    rev = 0;
+                if (rev != parseInt(cnpj.charAt(12)))
+                    ok = 0;
+                if (ok == 1) {
+                    add = 0;
+                    for (i = 0; i < 5; i++)
+                        add += parseInt(cnpj.charAt(i)) * (6 - i);
+                    for (i = 0; i < 8; i++)
+                        add += parseInt(cnpj.charAt(i + 5)) * (9 - i);
+                    rev = 11 - (add % 11);
+                    if (rev == 10 || rev == 11)
+                        rev = 0;
+                    if (rev != parseInt(cnpj.charAt(13)))
+                        ok = 0;
+                }
+            }
+            if (ok == 0) {
+                pg.style.color = "red";
+                pg.textContent = "CNPJ inválido";
+                return false;
+            }
+            pg.style.color = "black";
+            pg.textContent = "";
+            return true;
+        }
 }
 
 function validar_cep(elemento){
@@ -399,7 +502,7 @@ function salvar_usuario(event){
 
         if (!validar_cpf(document.getElementById('cpf')))
         {
-            alert("Nome inválido!");
+            alert("CPF inválido!");
             return false;
         }
 
@@ -408,6 +511,27 @@ function salvar_usuario(event){
             alert("Senha Inválida");
             return false;
         }
+    }
+
+    if (tipo_pessoa_cadastro == 2)
+    {
+       if (!validar_nome_responsavel(document.getElementById('nome_responsavel')))
+        {        
+            alert("Nome inválido!");
+            return false;
+        }
+
+        if (!validar_email_corporativo(document.getElementById('email_corporativo')))
+        {
+            alert("Email inválido!");
+            return false;
+        }
+
+        if (!validar_cnpj(document.getElementById('cnpj')))
+        {
+            alert("CNPJ inválido!");
+            return false;
+        } 
     }
     
     const dados = new FormData(event.target);
@@ -513,7 +637,6 @@ function editar_usuario(){
                 triggerempresa.querySelector('span').innerText = item.innerText;
             }
             // Campos adicionais de Empresa
-            document.getElementById("ie_empresa").value = usu_logado.ie || "";
             document.getElementById("qtd_funcionarios").value = usu_logado.qtd_funcionarios || "";
             document.getElementById("finalidade_empresa").value = usu_logado.finalidade || "";
         }
@@ -621,7 +744,7 @@ function selecionar_op(opcao){
         
     }else{
         triggerempresa.querySelector('span').innerText = opcao.innerText;
-        let inputHidden = document.getElementById('setor_input');
+        let inputHidden = document.getElementById('setor');
         inputHidden.value = opcao.getAttribute('data-value');
         selectempresa.classList.remove('open');
     }

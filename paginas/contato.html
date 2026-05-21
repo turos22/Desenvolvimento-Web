@@ -229,8 +229,10 @@
                       autocomplete="name"
                       required
                       aria-required="true"
+                      onblur="validar_nome(this)"
                     />
-                    <span class="field-error" role="alert" aria-live="polite"></span>
+                    <span class="field-error" role="alert" aria-live="polite" id="hint_pessoa"></span>
+                   
                   </div>
                   <div class="form-group">
                     <label for="email">E-mail</label>
@@ -241,9 +243,10 @@
                       placeholder="seu@email.com"
                       autocomplete="email"
                       required
-                      aria-required="true"
+                      aria-required="true" 
+                      onblur="validar_email(this)"
                     />
-                    <span class="field-error" role="alert" aria-live="polite"></span>
+                    <span class="field-error" role="alert" aria-live="polite" id="hint_email"></span>
                   </div>
                 </div>
 
@@ -289,6 +292,7 @@
                     required
                     aria-required="true"
                     aria-describedby="mensagem-hint"
+                    onblur="validar_mensagem(this)"
                   ></textarea>
                   <div class="textarea-footer">
                     <span id="mensagem-hint" class="field-hint">Mínimo de 20 caracteres</span>
@@ -394,5 +398,6 @@
 
   <script src="../scripts/pagina_inicial.js"></script>
   <script src="../scripts/contato.js"></script>
+  <script src="../scripts/funcoes.js"></script>
 </body>
 </html>

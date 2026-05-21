@@ -173,7 +173,8 @@
             <div class="row mb-4">
                 <div class="col">
                     <label style="font-weight: 600;" for="cnpj">CNPJ</label>
-                    <input type="text" class="form-control" placeholder="00.000.000/0001-00" id="cnpj" name="cnpj" required oninput="formatar_cnpj(this)">
+                    <input type="text" class="form-control" placeholder="00.000.000/0001-00" id="cnpj" name="cnpj" required oninput="formatar_cnpj(this)" onblur="validar_cnpj(this)">
+                    <p class="mb-4" style="font-style: italic;" id="hint_cnpj"></p>
                 </div>
                 <div class="col">
                     <div class="custom-select-container mb-1" id="selectEmpresa">
@@ -199,12 +200,14 @@
 
             <div class="mb-4">
                 <label class="mb-2" style="font-weight: 600;" for="nome_responsavel">Nome do Responsável</label>
-                <input type="text" class="form-control" placeholder="Nome do responsável" id="nome_responsavel" name="nome_responsavel" required>
+                <input type="text" class="form-control" placeholder="Nome do responsável" id="nome_responsavel" name="nome_responsavel" required onblur="validar_nome_responsavel(this)">
+                <p class="mb-4" style="font-style: italic;" id="hint_nome_responsavel"></p>
             </div>
 
             <div class="mb-4">
                 <label class="mb-2" style="font-weight: 600;" for="email_corporativo">E-mail Corporativo</label>
-                <input type="text" class="form-control" placeholder="contato@empresa.com" id="email_corporativo" name="email_corporativo" required>
+                <input type="email" class="form-control" placeholder="contato@empresa.com" id="email_corporativo" name="email_corporativo" required onblur="validar_email_corporativo(this)">
+                <p class="mb-4" style="font-style: italic;" id="hint_email_corporativo"></p>
             </div>
 
             <div class="mb-4">
@@ -219,16 +222,12 @@
                 <textarea class="form-control" id="finalidade_empresa" name="finalidade_empresa" rows="3" placeholder="Descreva brevemente a finalidade ou missão da empresa..." ></textarea>
             </div>
 
+            
             <div class="row mb-4">
-                <div class="col">
-                    <label style="font-weight: 600;" for="ie">IE da Empresa</label>
-                    <input type="text" class="form-control" placeholder="000.000.000.000" id="ie_empresa" name="ie_empresa" required>
-                </div>
-                <div class="col">
-                    <label style="font-weight: 600;" for="qtd_funcionarios">Quantidade de Funcionários</label>
-                    <input type="number" class="form-control" placeholder="0" id="qtd_funcionarios" name="qtd_funcionarios" required>
-                </div>
-            </div> 
+                <label style="font-weight: 600;" for="qtd_funcionarios">Quantidade de Funcionários</label>
+                <input type="number" class="form-control" placeholder="0" id="qtd_funcionarios" name="qtd_funcionarios" required>
+            </div>
+           
 
             <div class="mb-4">
                 <label class="mb-2" style="font-weight: 600;" for="logo_empresa">Logo da Empresa</label>

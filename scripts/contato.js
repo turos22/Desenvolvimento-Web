@@ -1,7 +1,6 @@
 /* ==========================================
    contato.js — Lógica da página de contato
    ========================================== */
-
 const form       = document.getElementById('contactForm');
 const formCard   = form ? form.closest('.contact-form-card') : null;
 const formSuccess = document.getElementById('formSuccess');
@@ -55,6 +54,7 @@ if (form) {
     field.addEventListener('input', () => clearFieldError(field));
   });
 }
+
 
 function validateForm() {
   let valid = true;
