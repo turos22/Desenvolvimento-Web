@@ -181,8 +181,6 @@ function formatarEscolaridade(mod) {
     }
 }
 
-renderizarVagas(vagas, true);
-
 function configurarSelectAll() {
 
   const selectAll =
@@ -425,8 +423,8 @@ vagaForm.addEventListener('submit', e => {
   /* =========================
      RE-RENDERIZA TUDO
      ========================= */
-  renderizarVagas(vagas, true);
-  filterList();
+
+     renderizarVagas(vagas, true);
 
   document.querySelectorAll('.empresa-job-card')
     .forEach(bindCardActions);
@@ -672,12 +670,13 @@ deleteConfirmBtn.addEventListener('click', () => {
   );
 
   renderizarVagas(vagas, true);
-  filterList();
 
   document.querySelectorAll('.empresa-job-card')
     .forEach(bindCardActions);
 
   updateStats();
+
+  filterList();
 
   closeDeleteModal();
 });
@@ -781,21 +780,28 @@ function filterList() {
 
   if (visivel === 0) {
 
-    empresaEmpty.hidden = false;
+  empresaEmpty.hidden = false;
 
-    actionsTop.style.display = 'none';
+  actionsTop.style.display = 'none';
 
-    actionsBar.style.display = 'none';
+  actionsBar.style.display = 'none';
 
-  } else {
+  // DESMARCA O CHECKBOX
+  const selectAll = document.getElementById('selectAllVagas');
 
-    empresaEmpty.hidden = true;
-
-    actionsTop.style.display = 'flex';
-
-    actionsBar.style.display = 'flex';
-
+  if (selectAll) {
+    selectAll.checked = false;
   }
+
+} else {
+
+  empresaEmpty.hidden = true;
+
+  actionsTop.style.display = 'flex';
+
+  actionsBar.style.display = 'flex';
+
+}
 }
 /* ------------------------------------------
    Atualizar estatísticas
@@ -836,5 +842,19 @@ modalidadeSelect.addEventListener("change", () => {
   } else {
     locationFields.classList.add("hidden");
   }
+
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+
+  renderizarVagas(vagas, true);
+
+  document
+    .querySelectorAll('.empresa-job-card')
+    .forEach(bindCardActions);
+
+  updateStats();
+
+  filterList();
 
 });
