@@ -147,12 +147,34 @@
             <span class="empresa-stat-label">Pausadas</span>
           </div>
         </div>
+        
+        <div class="empresa-actions-top">
 
+          <label class="select-all-wrap">
+            <span>Selecionar todas</span>
+
+            <input
+              type="checkbox"
+              id="selectAllVagas"
+            >
+          </label>
+
+        </div>
         <!-- Lista de vagas gerenciáveis -->
         <ul class="empresa-jobs-list" id="empresaJobsList" role="list" aria-label="Suas vagas">
 
-
+          
         </ul>
+        <div class="empresa-actions-bar">
+          <button
+            class="btn btn-danger"
+            id="btnDeleteSelected"
+            onclick="deletarVagasSelecionadas()"
+          >
+            <i class="fa-solid fa-trash"></i>
+            Excluir Selecionadas
+          </button>
+        </div>
 
         <!-- Estado vazio -->
         <div class="jobs-empty" id="empresaEmpty" hidden>
