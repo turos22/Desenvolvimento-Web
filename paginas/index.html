@@ -7,6 +7,8 @@
   <title>Incluir+ | Conectando talentos a oportunidades</title>
 
   <link rel="stylesheet" href="/estilos/pagina_inicial.css" />
+
+  <link rel="stylesheet" href="../estilos/vagas_gui.css" />
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -242,130 +244,13 @@
             <h2 id="jobs-title">Vagas em Destaque</h2>
             <p>Oportunidades selecionadas de empresas comprometidas com a inclusão</p>
           </div>
-          <a href="#" class="btn btn-outline">
+          <a href="vagas_gui.html" class="btn btn-outline">
             Ver todas as vagas <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
 
-        <div class="jobs-grid">
-
-          <article class="job-card">
-            <div class="job-card-header">
-              <div>
-                <h3 class="job-title">Analista de Suporte Técnico</h3>
-                <p class="job-company">
-                  <i class="fa-regular fa-building" aria-hidden="true"></i> TechCorp Brasil
-                </p>
-              </div>
-              <div class="job-icon" aria-hidden="true">
-                <i class="fa-solid fa-briefcase"></i>
-              </div>
-            </div>
-            <div class="job-meta">
-              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> São Paulo, SP</span>
-              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 2 dias</span>
-            </div>
-            <div class="job-tags">
-              <span class="tag tag-clt">CLT</span>
-              <span class="tag tag-mode">Híbrido</span>
-            </div>
-            <div class="job-disabilities">
-              <span class="tag tag-disability">Deficiência Física</span>
-              <span class="tag tag-disability">Deficiência Auditiva</span>
-            </div>
-            <div class="job-footer">
-              <span class="job-salary">R$ 3.500 – R$ 4.500</span>
-              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
-            </div>
-          </article>
-
-          <article class="job-card">
-            <div class="job-card-header">
-              <div>
-                <h3 class="job-title">Assistente Administrativo</h3>
-                <p class="job-company">
-                  <i class="fa-regular fa-building" aria-hidden="true"></i> Grupo Inclusão
-                </p>
-              </div>
-              <div class="job-icon" aria-hidden="true">
-                <i class="fa-solid fa-briefcase"></i>
-              </div>
-            </div>
-            <div class="job-meta">
-              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Rio de Janeiro, RJ</span>
-              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 3 dias</span>
-            </div>
-            <div class="job-tags">
-              <span class="tag tag-clt">CLT</span>
-              <span class="tag tag-mode">Presencial</span>
-            </div>
-            <div class="job-disabilities">
-              <span class="tag tag-disability">Todas as Deficiências</span>
-            </div>
-            <div class="job-footer">
-              <span class="job-salary">R$ 2.200 – R$ 2.800</span>
-              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
-            </div>
-          </article>
-
-          <article class="job-card">
-            <div class="job-card-header">
-              <div>
-                <h3 class="job-title">Desenvolvedor Front-end Junior</h3>
-                <p class="job-company">
-                  <i class="fa-regular fa-building" aria-hidden="true"></i> StartupInclui
-                </p>
-              </div>
-              <div class="job-icon" aria-hidden="true">
-                <i class="fa-solid fa-briefcase"></i>
-              </div>
-            </div>
-            <div class="job-meta">
-              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Remoto</span>
-              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 1 dia</span>
-            </div>
-            <div class="job-tags">
-              <span class="tag tag-clt">CLT</span>
-              <span class="tag tag-mode">Home Office</span>
-            </div>
-            <div class="job-disabilities">
-              <span class="tag tag-disability">Deficiência Visual</span>
-              <span class="tag tag-disability">Deficiência Física</span>
-            </div>
-            <div class="job-footer">
-              <span class="job-salary">R$ 4.000 – R$ 5.500</span>
-              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
-            </div>
-          </article>
-
-          <article class="job-card">
-            <div class="job-card-header">
-              <div>
-                <h3 class="job-title">Atendente de Call Center</h3>
-                <p class="job-company">
-                  <i class="fa-regular fa-building" aria-hidden="true"></i> Central de Atendimento SA
-                </p>
-              </div>
-              <div class="job-icon" aria-hidden="true">
-                <i class="fa-solid fa-briefcase"></i>
-              </div>
-            </div>
-            <div class="job-meta">
-              <span><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Belo Horizonte, MG</span>
-              <span><i class="fa-regular fa-clock" aria-hidden="true"></i> Há 5 dias</span>
-            </div>
-            <div class="job-tags">
-              <span class="tag tag-clt">CLT</span>
-              <span class="tag tag-mode">Presencial</span>
-            </div>
-            <div class="job-disabilities">
-              <span class="tag tag-disability">Deficiência Física</span>
-            </div>
-            <div class="job-footer">
-              <span class="job-salary">R$ 1.800 – R$ 2.200</span>
-              <a href="#" class="btn btn-primary btn-sm">Ver Vaga</a>
-            </div>
-          </article>
+        <div class="jobs-grid" id="jobs-grid">
+          <!-- Vagas serão inseridas aqui dinamicamente via JavaScript -->
 
         </div>
       </div>
@@ -381,7 +266,7 @@
             <h2 id="courses-title">Cursos de Capacitação</h2>
             <p>Desenvolva novas habilidades com cursos acessíveis e certificados</p>
           </div>
-          <a href="#" class="btn btn-outline">
+          <a href="Cursos.html" class="btn btn-outline">
             Ver todos os cursos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
@@ -560,5 +445,97 @@
   </footer>
 
   <script src="/scripts/pagina_inicial.js"></script>
+  <script src="../scripts/lista_vagas.js"></script>
+  <script src="../scripts/vagas_gui.js"></script>
+
+  <div class="modal-overlay" id="modalDetalhesOverlay">
+
+    <div class="modal-box modal-detalhes">
+
+      <div class="modal-header">
+        <div>
+          <h2 id="detalhesTitulo"></h2>
+          <p id="detalhesEmpresa"></p>
+        </div>
+
+        <button
+          class="modal-close"
+          onclick="fecharModalDetalhes()"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body detalhes-body">
+
+        <div class="detalhe-bloco">
+          <h3>Descrição</h3>
+          <p id="detalhesDescricao"></p>
+        </div>
+
+        <div class="detalhe-grid">
+
+          <div class="detalhe-item">
+            <span>Modalidade</span>
+            <strong id="detalhesModalidade"></strong>
+          </div>
+
+          <div class="detalhe-item">
+            <span>Contrato</span>
+            <strong id="detalhesContrato"></strong>
+          </div>
+
+          <div class="detalhe-item">
+            <span>Escolaridade</span>
+            <strong id="detalhesEscolaridade"></strong>
+          </div>
+
+          <div class="detalhe-item">
+            <span>Salário</span>
+            <strong id="detalhesSalario"></strong>
+          </div>
+
+        </div>
+
+        <div
+          class="detalhe-bloco"
+          id="blocoEndereco"
+        >
+          <h3>Endereço</h3>
+
+          <p id="detalhesEndereco"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Benefícios</h3>
+          <p id="detalhesBeneficios"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Requisitos</h3>
+          <p id="detalhesRequisitos"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Requisitos Opcionais</h3>
+          <p id="detalhesReqOpc"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Responsabilidades</h3>
+          <p id="detalhesResponsabilidades"></p>
+        </div>
+
+        <div class="detalhe-bloco">
+          <h3>Deficiências Aceitas</h3>
+          <p id="detalhesDeficiencia"></p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </body>
 </html>

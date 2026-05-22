@@ -13,25 +13,40 @@
 //import { usu_logado } from "./funcoes.js";
 var usu_logado = JSON.parse(localStorage.getItem("usu_logado"));
 function renderizarVagas(listaVagas, mostrarInativas = false) {
-    const container = document.getElementById("empresaJobsList");
+
+    const container =
+      document.getElementById("empresaJobsList");
+
     container.innerHTML = "";
 
-    // FILTRAR SE PRECISA MOSTRAR SÓ ATIVAS
-    const vagasFiltradas = mostrarInativas 
-        ? listaVagas 
-        : listaVagas.filter(v => v.empresaId == usu_logado.usu_id);
+    // FILTRA SOMENTE AS VAGAS DA EMPRESA LOGADA
+    const vagasFiltradas = listaVagas.filter(
+      v => v.empresaId == usu_logado.usu_id
+    );
 
     console.log(vagasFiltradas);
-    console.log(usu_logado.usu_id);
 
     vagasFiltradas.forEach(v => {
-      if(usu_logado.usu_id == v.empresaId){
+
         const defV = v.deficiencia.split(" ");
+
         const dataAtual = new Date();
+
         const dataV = new Date(v.data);
-        const dias = Math.floor((dataAtual - dataV) / (1000 * 60 * 60 * 24));
-        const ativa = v.status === 'ativa';
-        const classePausada = v.status === 'pausada' ? 'pausada' : '';
+
+        const dias = Math.floor(
+          (dataAtual - dataV)
+          / (1000 * 60 * 60 * 24)
+        );
+
+        const ativa =
+          v.status === 'ativa';
+
+        const classePausada =
+          v.status === 'pausada'
+            ? 'pausada'
+            : '';
+
         container.innerHTML += `
         <li class="empresa-job-card ${classePausada}"
             data-id="${v.id}"
@@ -64,7 +79,16 @@ function renderizarVagas(listaVagas, mostrarInativas = false) {
                     <i class="fa-regular fa-building" aria-hidden="true"></i> ${v.empresa}
                   </p>
                 </div>
-                <span class="status-badge status-${v.status}">${formatarStatus(v.status)}</span>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span class="status-badge status-${v.status}">${formatarStatus(v.status)}</span>
+                  <div class="job-select">
+                    <input
+                      type="checkbox"
+                      class="vaga-checkbox"
+                      value="${v.id}"
+                    >
+                  </div>
+                </div>
               </div>
               <p class="job-item-desc">
                 ${v.descricao}
@@ -106,9 +130,10 @@ function renderizarVagas(listaVagas, mostrarInativas = false) {
             </div>
           </li>
         `;
-      }
+      
         
     });
+    configurarSelectAll();
 }
 
 function formatarModalidade(mod) {
@@ -158,6 +183,56 @@ function formatarEscolaridade(mod) {
 
 renderizarVagas(vagas, true);
 
+function configurarSelectAll() {
+
+  const selectAll =
+    document.getElementById('selectAllVagas');
+
+  if (!selectAll) return;
+
+  selectAll.onchange = function () {
+
+    document
+      .querySelectorAll('.vaga-checkbox')
+      .forEach(cb => {
+
+        cb.checked = this.checked;
+
+      });
+
+  };
+
+}
+
+function deletarVagasSelecionadas() {
+
+  const checks = document.querySelectorAll(
+    '.vaga-checkbox:checked'
+  );
+
+  if (checks.length === 0) {
+
+    alert('Selecione ao menos uma vaga.');
+
+    return;
+  }
+
+  vagasSelecionadasParaExcluir =
+    [...checks].map(
+      c => Number(c.value)
+    );
+
+  deleteJobName.textContent =
+    `${checks.length} vaga(s) selecionada(s)`;
+
+  deleteOverlay.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  document.body.style.overflow = 'hidden';
+}
+
 /* ------------------------------------------
    Elementos
    ------------------------------------------ */
@@ -186,6 +261,7 @@ const statPausadas   = document.getElementById('statPausadas');
 
 
 let pendingDeleteId  = null;
+let vagasSelecionadasParaExcluir = [];
 
 /* ------------------------------------------
    Abrir / fechar modal de vaga
@@ -350,6 +426,7 @@ vagaForm.addEventListener('submit', e => {
      RE-RENDERIZA TUDO
      ========================= */
   renderizarVagas(vagas, true);
+  filterList();
 
   document.querySelectorAll('.empresa-job-card')
     .forEach(bindCardActions);
@@ -552,9 +629,17 @@ function setStatus(card, status) {
    Modal de exclusão
    ------------------------------------------ */
 function closeDeleteModal() {
-  deleteOverlay.setAttribute('aria-hidden', 'true');
+
+  deleteOverlay.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
   document.body.style.overflow = '';
+
   pendingDeleteId = null;
+
+  vagasSelecionadasParaExcluir = [];
 }
 
 deleteClose.addEventListener('click', closeDeleteModal);
@@ -562,17 +647,38 @@ deleteCancelBtn.addEventListener('click', closeDeleteModal);
 deleteOverlay.addEventListener('click', e => { if (e.target === deleteOverlay) closeDeleteModal(); });
 
 deleteConfirmBtn.addEventListener('click', () => {
-  if (!pendingDeleteId) return;
-  const card = document.querySelector(`.empresa-job-card[data-id="${pendingDeleteId}"]`);
-  vagas = vagas.filter(v => v.id != pendingDeleteId);
 
-  localStorage.setItem("vagas", JSON.stringify(vagas));
+  // EXCLUSÃO MÚLTIPLA
+  if (vagasSelecionadasParaExcluir.length > 0) {
+
+    vagas = vagas.filter(
+      v => !vagasSelecionadasParaExcluir.includes(v.id)
+    );
+
+    vagasSelecionadasParaExcluir = [];
+  }
+
+  // EXCLUSÃO INDIVIDUAL
+  else if (pendingDeleteId) {
+
+    vagas = vagas.filter(
+      v => v.id != pendingDeleteId
+    );
+  }
+
+  localStorage.setItem(
+    "vagas",
+    JSON.stringify(vagas)
+  );
 
   renderizarVagas(vagas, true);
+  filterList();
 
   document.querySelectorAll('.empresa-job-card')
     .forEach(bindCardActions);
+
   updateStats();
+
   closeDeleteModal();
 });
 
@@ -583,36 +689,114 @@ empresaSearch.addEventListener('input', filterList);
 empresaSort.addEventListener('change', filterList);
 
 function filterList() {
-  const q     = empresaSearch.value.trim().toLowerCase();
-  const sort  = empresaSort.value;
-  const cards = Array.from(document.querySelectorAll('.empresa-job-card'));
 
-  /* Ordenar */
+  const q = empresaSearch.value
+    .trim()
+    .toLowerCase();
+
+  const sort = empresaSort.value;
+
+  const cards = Array.from(
+    document.querySelectorAll('.empresa-job-card')
+  );
+
+  const empresaEmpty =
+    document.getElementById('empresaEmpty');
+
+  const actionsTop =
+    document.querySelector('.empresa-actions-top');
+
+  const actionsBar =
+    document.querySelector('.empresa-actions-bar');
+
+  /* =========================
+     ORDENAR
+     ========================= */
+
   const sorted = cards.sort((a, b) => {
-    if (sort === 'recentes') return Number(a.dataset.tempo) - Number(b.dataset.tempo);
-    if (sort === 'antigas')  return Number(b.dataset.tempo) - Number(a.dataset.tempo);
+
+    if (sort === 'recentes') {
+
+      return Number(a.dataset.tempo)
+        - Number(b.dataset.tempo);
+    }
+
+    if (sort === 'antigas') {
+
+      return Number(b.dataset.tempo)
+        - Number(a.dataset.tempo);
+    }
+
     if (sort === 'ativas') {
-      const aAtiva = a.dataset.status === 'ativa' ? 0 : 1;
-      const bAtiva = b.dataset.status === 'ativa' ? 0 : 1;
+
+      const aAtiva =
+        a.dataset.status === 'ativa'
+          ? 0
+          : 1;
+
+      const bAtiva =
+        b.dataset.status === 'ativa'
+          ? 0
+          : 1;
+
       return aAtiva - bAtiva;
     }
+
     return 0;
   });
 
-  sorted.forEach(card => empresaJobsList.appendChild(card));
-
-  /* Filtrar por texto */
-  let visivel = 0;
   sorted.forEach(card => {
-    const texto = (card.dataset.titulo + ' ' + card.dataset.descricao).toLowerCase();
-    const mostrar = !q || texto.includes(q);
-    card.style.display = mostrar ? '' : 'none';
-    if (mostrar) visivel++;
+
+    empresaJobsList.appendChild(card);
+
   });
 
-  empresaEmpty.hidden = visivel > 0;
-}
+  /* =========================
+     FILTRAR
+     ========================= */
 
+  let visivel = 0;
+
+  sorted.forEach(card => {
+
+    const texto = (
+      card.dataset.titulo +
+      ' ' +
+      card.dataset.descricao
+    ).toLowerCase();
+
+    const mostrar =
+      !q || texto.includes(q);
+
+    card.style.display =
+      mostrar ? '' : 'none';
+
+    if (mostrar) visivel++;
+
+  });
+
+  /* =========================
+     ESTADO VAZIO
+     ========================= */
+
+  if (visivel === 0) {
+
+    empresaEmpty.hidden = false;
+
+    actionsTop.style.display = 'none';
+
+    actionsBar.style.display = 'none';
+
+  } else {
+
+    empresaEmpty.hidden = true;
+
+    actionsTop.style.display = 'flex';
+
+    actionsBar.style.display = 'flex';
+
+  }
+}
 /* ------------------------------------------
    Atualizar estatísticas
    ------------------------------------------ */
