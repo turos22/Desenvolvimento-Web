@@ -1,5 +1,15 @@
 // ARRAY CENTRAL DE VAGAS
-//localStorage.clear(); // Limpa o localStorage para evitar conflitos com dados antigos
+if (!localStorage.getItem("app_inicializada")) {
+
+  localStorage.clear();
+
+  localStorage.setItem(
+    "app_inicializada",
+    "true"
+  );
+}
+
+
 let vagas = JSON.parse(localStorage.getItem("vagas")) || [
   {
     id: 1,
